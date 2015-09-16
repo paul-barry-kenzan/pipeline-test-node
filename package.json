@@ -22,9 +22,14 @@
     "gulp-eslint": "^1.0.0",
     "gulp-if": "^1.2.5",
     "gulp-jscs": "^2.0.0",
+    "gulp-jscs-stylish": "^1.1.2",
     "gulp-jshint": "^1.11.2",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-piece": "^1.1.1",
     "gulp-print": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^2.0.1",
+    "lodash": "^3.10.1",
     "stream-combiner2": "^1.0.2",
     "yargs": "^3.25.0"
   }

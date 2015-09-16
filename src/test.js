@@ -1,7 +1,9 @@
-'use strict'
+'use strict';
 
 var test = 0;
 
-function Testing() {
-  console.log('Test js validation');
+function testing() {
+  console.log('Test js validation' + test);
 }
+
+testing();

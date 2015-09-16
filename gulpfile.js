@@ -3,4 +3,4 @@
 var gulp = require('gulp');
 require('./index.js')(gulp);
 
-gulp.task('default', ['validate:ES']);
+gulp.task('default', ['validate:js']);

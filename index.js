@@ -1,11 +1,9 @@
-/* jshint node: true */
 'use strict';
 
+var _ = require('lodash');
 var args = require('yargs').argv;
 var glp = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
-var eslint = require('gulp-eslint');
-var combiner = require('stream-combiner2');
 
 var config = {
       files: [
@@ -30,14 +28,18 @@ function resolveConfigFile(fileName) {
   return configFile;
 }
 
-module.exports = function (gulp) {
+module.exports = function (gulp, options) {
 
+  if (options) {
+    config = updateConfiguration(config, options);
+    log(config);
+  }
   gulp.task('validate:js', validate);
   gulp.task('validate:ES', validateES);
 
   function validateJs() {
 
-    return combiner(
+    return glp.piece(
       glp.jshint(jsHintConfig),
       glp.if(!config.disableJSCS, glp.jscs(jscsConfig))
     );
@@ -56,15 +58,31 @@ module.exports = function (gulp) {
   function validateES() {
     return gulp
       .src(config.files)
-      // eslint() attaches the lint output to the eslint property
-      // of the file object so it can be used by other modules.
-      .pipe(eslint())
-      // eslint.format() outputs the lint results to the console.
-      // Alternatively use eslint.formatEach() (see Docs).
-      .pipe(eslint.format())
-      // To have the process exit with an error code (1) on
-      // lint error, return the stream and pipe to failOnError last.
-      .pipe(eslint.failOnError());
+      .pipe(glp.eslint())
+      .pipe(glp.eslint.format())
+      .pipe(glp.eslint.failOnError());
 
+  }
+
+  function updateConfiguration(config, newConfig) {
+    return _.merge({}, config, newConfig, replaceArrays);
+  }
+
+  function replaceArrays(a, b) {
+    if (_.isArray(a)) {
+      return b;
+    }
+  }
+
+  function log(msg) {
+    if (typeof(msg) === 'object') {
+      for (var item in msg) {
+        if (msg.hasOwnProperty(item)) {
+          glp.util.log(glp.util.colors.blue(msg[item]));
+        }
+      }
+    } else {
+      glp.util.log(glp.util.colors.blue(msg));
+    }
   }
 };

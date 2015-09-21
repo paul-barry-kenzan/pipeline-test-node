@@ -46,5 +46,15 @@
     "mocha": "2.3.2",
     "yargs": "3.25.0"
   },
+  "preferGlobal": false,
+  "private": false,
+  "publishConfig": {
+    "registry": ""
+  },
+  "engines" : {
+    "node": ">=0.10.3",
+    "npm": ">=1.0.20"
+  },
+  "analyze": true,
   "license": "ISC"
 }

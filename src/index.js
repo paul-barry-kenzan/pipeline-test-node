@@ -25,7 +25,7 @@ function resolveConfigFile(fileName) {
   } else if (existsSync(__dirname + '/' + fileName)) {
     configFile = __dirname + '/' + fileName;
   } else {
-    // If the file isn't found, it uses the default linters
+    // If the file isn't found, it uses the default configurations.
     return;
   }
 

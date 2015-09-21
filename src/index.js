@@ -1,9 +1,10 @@
 'use strict';
 
-var _ = require('lodash');
 var args = require('yargs').argv;
 var glp = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
+var helper = require('../src/resources.js');
+var PluginError = glp.util.PluginError;
 
 var config = {
       files: [
@@ -19,20 +20,36 @@ var jscsConfig = resolveConfigFile('.jscsrc');
 
 function resolveConfigFile(fileName) {
   var configFile;
-
-  if (fs.accessSync(process.cwd() + '/' + fileName)) {
+  if (existsSync(process.cwd() + '/' + fileName)) {
     configFile = process.cwd() + '/' + fileName;
-  } else {
+  } else if (existsSync(__dirname + '/' + fileName)) {
     configFile = __dirname + '/' + fileName;
+  } else {
+    // If the file isn't found, it uses the default linters
+    return;
   }
+
   return configFile;
+
+}
+
+function existsSync(filename) {
+  try {
+    fs.accessSync(filename);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 module.exports = function (gulp, options) {
 
+  if (!gulp) {
+    throw new PluginError('pipe', 'Missing gulp option');
+  }
+
   if (options) {
-    config = updateConfiguration(config, options);
-    log(config);
+    config = helper.updateConf(config, options);
   }
   gulp.task('validate:js', validate);
   gulp.task('validate:ES', validateES);
@@ -46,6 +63,7 @@ module.exports = function (gulp, options) {
   }
 
   function validate() {
+    helper.log('Validating js with jshint');
     return gulp
       .src(config.files)
       .pipe(glp.if(args.verbose, glp.print()))
@@ -56,6 +74,7 @@ module.exports = function (gulp, options) {
   }
 
   function validateES() {
+    helper.log('Validating js with eslint');
     return gulp
       .src(config.files)
       .pipe(glp.eslint())
@@ -64,25 +83,4 @@ module.exports = function (gulp, options) {
 
   }
 
-  function updateConfiguration(config, newConfig) {
-    return _.merge({}, config, newConfig, replaceArrays);
-  }
-
-  function replaceArrays(a, b) {
-    if (_.isArray(a)) {
-      return b;
-    }
-  }
-
-  function log(msg) {
-    if (typeof(msg) === 'object') {
-      for (var item in msg) {
-        if (msg.hasOwnProperty(item)) {
-          glp.util.log(glp.util.colors.blue(msg[item]));
-        }
-      }
-    } else {
-      glp.util.log(glp.util.colors.blue(msg));
-    }
-  }
 };

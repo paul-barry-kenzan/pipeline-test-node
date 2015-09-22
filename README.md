@@ -23,40 +23,42 @@ _jenkins_: ``TODO``
 var gulp = require('gulp');
 require('./src/index.js')(gulp);
 
-gulp.task('default', ['validate:js']);
+gulp.task('default', ['pipelineValidateJS']);
 ```
 
 ## Options
 
 Pipeline options:
 * _config_ -> Object that contains the configuration.
+
+    + __config.disableJSCS:__ If _true_ doesn't validate the files using ``jscsrc``. You might want to disable JSCS if working on a legacy project. Otherwise this option should _false_.
+
     + __config.files:__ Array with the paths to validate.
 
-    + __config.disableJSCS:__ if _true_ doesn't validate the files using ``jscsrc``.
+    + __config.linter:__ Sets the desire rules to validate the files. It can be set to ``JSHint`` or ``ESLint``.
+
 
   Default:
   ```
   config = {
+        disableJSCS: false,
         files: [
           '*.js',
           'src/*.js',
           'src/**/*.js'
         ],
-        disableJSCS: false
+        linter: 'JSHint'  
       }
   ```  
 
 ## Results
 
-Adds the following tasks to the gulp object.
+This pipeline adds the following task to the gulp object.
 
-__validate:js__
+__pipelineValidateJS__
 
-Validates the files found on the paths provided in the options using JSHint and JSCS-- the last one only if disableJSCS is _false_
+Validates the files found on the paths provided in the options. It will use _ESLint_ if ```config.linter = ESLint ```. Otherwise it will use _JSHint_ and _JSCS_-- the last one only if disableJSCS is _false_
 
-__validate:ES__
-
-Uses ES6 rules to validate the js files.
 
 ## Dependencies
 

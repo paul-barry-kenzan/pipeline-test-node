@@ -1,19 +1,20 @@
 'use strict';
 
 var args = require('yargs').argv;
-var glp = require('gulp-load-plugins')({lazy: true});
+var $ = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
 var helper = require('../src/resources.js');
-var PluginError = glp.util.PluginError;
+var PluginError = $.util.PluginError;
 
 var config = {
-      files: [
-        '*.js',
-        'src/*.js',
-        'src/**/*.js'
-      ],
-      disableJSCS: false
-    };
+  files: [
+    '*.js',
+    'src/*.js',
+    'src/**/*.js'
+  ],
+  disableJSCS: false,
+  linter: 'JSHint'
+};
 
 var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
@@ -51,35 +52,39 @@ module.exports = function (gulp, options) {
   if (options) {
     config = helper.updateConf(config, options);
   }
-  gulp.task('validate:js', validate);
-  gulp.task('validate:ES', validateES);
 
-  function validateJs() {
+  gulp.task('pipelineValidateJS', validateJS);
 
-    return glp.piece(
-      glp.jshint(jsHintConfig),
-      glp.if(!config.disableJSCS, glp.jscs(jscsConfig))
+  if (config.linter === 'ESLint') {
+    gulp.task('pipelineValidateJS', validateES);
+  }
+
+  function jsValidationCombiner() {
+
+    return $.piece(
+      $.jshint(jsHintConfig),
+      $.if(!config.disableJSCS, $.jscs(jscsConfig))
     );
   }
 
-  function validate() {
-    helper.log('Validating js with jshint');
+  function validateJS() {
+    helper.log('Validating js with JSHint');
     return gulp
       .src(config.files)
-      .pipe(glp.if(args.verbose, glp.print()))
-      .pipe(validateJs())
-      .pipe(glp.if(!config.disableJSCS, glp.jscsStylish.combineWithHintResults()))
-      .pipe(glp.jshint.reporter('jshint-stylish'))
-      .pipe(glp.jshint.reporter('fail'));
+      .pipe($.if(args.verbose, $.print()))
+      .pipe(jsValidationCombiner())
+      .pipe($.if(!config.disableJSCS, $.jscsStylish.combineWithHintResults()))
+      .pipe($.jshint.reporter('jshint-stylish'))
+      .pipe($.jshint.reporter('fail'));
   }
 
   function validateES() {
-    helper.log('Validating js with eslint');
+    helper.log('Validating js with ESlint');
     return gulp
       .src(config.files)
-      .pipe(glp.eslint())
-      .pipe(glp.eslint.format())
-      .pipe(glp.eslint.failOnError());
+      .pipe($.eslint())
+      .pipe($.eslint.format())
+      .pipe($.eslint.failOnError());
 
   }
 

@@ -30,6 +30,20 @@
   ],
   "devDependencies": {
     "chai": "3.2.0",
+    "mocha": "2.3.2"
+  },
+  "preferGlobal": false,
+  "private": false,
+  "publishConfig": {
+    "registry": ""
+  },
+  "engines": {
+    "node": ">=0.10.3",
+    "npm": ">=1.0.20"
+  },
+  "analyze": true,
+  "license": "ISC",
+  "dependencies": {
     "gulp": "3.9.0",
     "gulp-eslint": "1.0.0",
     "gulp-if": "1.2.5",
@@ -43,18 +57,6 @@
     "gulp-util": "3.0.6",
     "jshint-stylish": "2.0.1",
     "lodash": "3.10.1",
-    "mocha": "2.3.2",
     "yargs": "3.25.0"
-  },
-  "preferGlobal": false,
-  "private": false,
-  "publishConfig": {
-    "registry": ""
-  },
-  "engines" : {
-    "node": ">=0.10.3",
-    "npm": ">=1.0.20"
-  },
-  "analyze": true,
-  "license": "ISC"
+  }
 }

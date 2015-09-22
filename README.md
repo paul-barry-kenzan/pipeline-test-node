@@ -21,7 +21,7 @@ _jenkins_: ``TODO``
 ## Usage
 ```
 var gulp = require('gulp');
-require('./src/index.js')(gulp);
+require('./node_modules/pipeline-validate-js/src/index.js')(gulp);
 
 gulp.task('default', ['pipelineValidateJS']);
 ```

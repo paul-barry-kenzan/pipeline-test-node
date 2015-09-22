@@ -1,10 +1,10 @@
 'use strict';
 
 var args = require('yargs').argv;
-var $ = require('gulp-load-plugins')({lazy: true});
+var plugins = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
 var helper = require('../src/resources.js');
-var PluginError = $.util.PluginError;
+var PluginError = plugins.util.PluginError;
 
 var config = {
   files: [
@@ -53,17 +53,19 @@ module.exports = function (gulp, options) {
     config = helper.updateConf(config, options);
   }
 
-  gulp.task('pipelineValidateJS', validateJS);
-
-  if (config.linter === 'ESLint') {
-    gulp.task('pipelineValidateJS', validateES);
+  switch (config.linter) {
+    case 'ESLint':
+      gulp.task('pipelineValidateJS', validateES);
+      break;
+    default:
+      gulp.task('pipelineValidateJS', validateJS);
   }
 
   function jsValidationCombiner() {
 
-    return $.piece(
-      $.jshint(jsHintConfig),
-      $.if(!config.disableJSCS, $.jscs(jscsConfig))
+    return plugins.piece(
+      plugins.jshint(jsHintConfig),
+      plugins.if(!config.disableJSCS, plugins.jscs(jscsConfig))
     );
   }
 
@@ -71,20 +73,20 @@ module.exports = function (gulp, options) {
     helper.log('Validating js with JSHint');
     return gulp
       .src(config.files)
-      .pipe($.if(args.verbose, $.print()))
+      .pipe(plugins.if(args.verbose, plugins.print()))
       .pipe(jsValidationCombiner())
-      .pipe($.if(!config.disableJSCS, $.jscsStylish.combineWithHintResults()))
-      .pipe($.jshint.reporter('jshint-stylish'))
-      .pipe($.jshint.reporter('fail'));
+      .pipe(plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults()))
+      .pipe(plugins.jshint.reporter('jshint-stylish'))
+      .pipe(plugins.jshint.reporter('fail'));
   }
 
   function validateES() {
     helper.log('Validating js with ESlint');
     return gulp
       .src(config.files)
-      .pipe($.eslint())
-      .pipe($.eslint.format())
-      .pipe($.eslint.failOnError());
+      .pipe(plugins.eslint())
+      .pipe(plugins.eslint.format())
+      .pipe(plugins.eslint.failOnError());
 
   }
 

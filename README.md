@@ -1,1 +1,77 @@
-# pipeline-test-node
+## pipeline-test-node
+
+## Information
+
+| Package       | Description   | Version|
+| ------------- |:-------------:| -----:|
+| pipeline-test-node| Pipeline to run tests locally using mocha | 0.1.0 |
+
+# Overview
+
+Gulp Pipeline that generates a gulp task to run tests locally using `mocha`.
+
+_repo_: `ssh://git@github.com:kenzanmedia/pipeline-test-node.git`
+
+_jenkins_: `TODO`
+
+## Install
+`TODO`
+
+## Usage
+```javascript
+var gulp = require('gulp');
+require('./node_modules/pipeline-test-node/src/index.js')(gulp);
+
+```
+
+
+## Options
+
+Pipeline options:
+* _config_ -> Object that contains the configuration.
+
+    + __config.files:__ Array with the paths that contain the tests to run.
+
+    + __config.mochaConfig:__ Array to define mocha configurations. You can find the properties in [Mocha options](http://mochajs.org/#usage)
+
+
+Default:
+```javascript
+config = {
+  disableJSCS: false,
+  files: [
+    'test/*.js',
+    'test/**/*.js'
+  ],
+  mochaConfig: {
+    reporter: 'List',
+  }
+}
+```
+
+## Results
+
+This pipeline adds the following task to the gulp object.
+
+  * __pipelineTest__
+
+  This task runs the tests found on the paths provided in the option _config.files_. It uses mocha, and validates based on the configuration provided in _config.mochaConfig_. If no configuration is provided it will use mocha's default.  
+
+
+## Dependencies
+
+| Package       | npm link   |
+| ------------- |:-------------:|
+|gulp| https://www.npmjs.com/package/gulp |
+|gulp-load-plugins| https://www.npmjs.com/package/gulp-load-plugins |
+|lodash| https://www.npmjs.com/package/lodash |
+
+## devDependencies
+
+| Package       | npm link   |
+| ------------- |:-------------:|
+|chai| https://www.npmjs.com/package/chai |
+|mocha| https://www.npmjs.com/package/mocha |
+
+
+## LICENSE

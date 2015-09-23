@@ -11,7 +11,7 @@
 
 Gulp Pipeline that allows you to validate the js files within your project. It defines two gulp tasks to complete the validation. One uses JSHint and JSCS to complete the task, the other one uses ESLint.
 
-This pipeline also offers the possibility of using personalized liniting rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. This pipeline will prioritize your rules over the default configurations.
+This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. This pipeline will prioritize your rules over the default configurations.
 
 _repo_: `ssh://git@projects.kenzanmedia.com:7999/key/pipeline-validate-js.git`
 

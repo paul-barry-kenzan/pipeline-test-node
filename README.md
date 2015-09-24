@@ -59,19 +59,18 @@ This pipeline adds the following task to the gulp object.
 
 
 ## Dependencies
-
-| Package       | npm link   |
-| ------------- |:-------------:|
-|gulp| https://www.npmjs.com/package/gulp |
-|gulp-load-plugins| https://www.npmjs.com/package/gulp-load-plugins |
-|lodash| https://www.npmjs.com/package/lodash |
-
-## devDependencies
+<!-- TODO Update pipeline-handyman npm link-->
 
 | Package       | npm link   |
 | ------------- |:-------------:|
 |chai| https://www.npmjs.com/package/chai |
+|gulp| https://www.npmjs.com/package/gulp |
+|gulp-load-plugins| https://www.npmjs.com/package/gulp-load-plugins |
+|gulp-mocha| https://www.npmjs.com/package/gulp-mocha |
+|gulp-util| https://www.npmjs.com/package/gulp-util |
 |mocha| https://www.npmjs.com/package/mocha |
+|pipeline-handyman| git+ssh://git@github.com:kenzanmedia/pipeline-handyman.git#KEY-24-handyman-pipeline |
 
 
 ## LICENSE
+<!-- TODO -->

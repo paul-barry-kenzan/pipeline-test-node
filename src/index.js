@@ -14,23 +14,20 @@ var config = {
     'src/**/*.js'
   ],
   disableJSCS: false,
-  linter: 'JSHint',
-  lintRules: [
-    '../'
-  ]
+  linter: 'JSHint'
 };
 var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
 function resolveConfigFile(fileName) {
-  var configFile;
+
   var configFilesPathUser = path.resolve(process.cwd(), fileName);
-  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf("/"));
+  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
 
   configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
 
-  return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault
+  return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault;
 
 }
 
@@ -44,7 +41,6 @@ function existsSync(filename) {
 }
 
 module.exports = function (gulp, options) {
-
 
   if (!gulp) {
     throw new PluginError('pipe', 'Missing gulp option');

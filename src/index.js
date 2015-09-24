@@ -1,7 +1,7 @@
 'use strict';
 
 var plugins = require('gulp-load-plugins')({lazy: true});
-var handyman = require('pipeline-handyman');
+var handyman = require('./node_modules/pipeline-handyman/src/index.js');
 var PluginError = plugins.util.PluginError;
 
 var config = {

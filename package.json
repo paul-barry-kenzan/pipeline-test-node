@@ -28,7 +28,7 @@
     "Pipeline"
   ],
   "devDependencies": {
-    "pipeline-validate-js": "ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#bug/KEY-28-linter-configurations"
+    "pipeline-validate-js": "ssh://git@github.com/kenzanmedia/pipeline-validate-js.git"
   },
   "preferGlobal": false,
   "private": false,

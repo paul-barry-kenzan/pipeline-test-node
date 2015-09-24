@@ -26,15 +26,14 @@ var esLintConfig = resolveConfigFile('.eslintrc');
 function resolveConfigFile(fileName) {
   var configFile;
   var processPath = path.resolve(process.cwd(), fileName);
-  var dirPath = path.resolve(__dirname, fileName);
-  var pipelinePath = path.resolve('node_modules/pipeline-validate-js',fileName);
+  var dirPath = __dirname.substring(0, __dirname.lastIndexOf("/"));
+
+  dirPath = path.resolve(dirPath, fileName);
 
   if (existsSync(processPath)) {
     configFile = processPath;
-  } else if (existsSync(dirPath)) {
-    configFile = dirPath;
   } else {
-    configFile =  pipelinePath;
+    configFile = dirPath;
   }
   return configFile;
 
@@ -50,6 +49,7 @@ function existsSync(filename) {
 }
 
 module.exports = function (gulp, options) {
+
 
   if (!gulp) {
     throw new PluginError('pipe', 'Missing gulp option');

@@ -25,17 +25,12 @@ var esLintConfig = resolveConfigFile('.eslintrc');
 
 function resolveConfigFile(fileName) {
   var configFile;
-  var processPath = path.resolve(process.cwd(), fileName);
-  var dirPath = __dirname.substring(0, __dirname.lastIndexOf("/"));
+  var configFilesPathUser = path.resolve(process.cwd(), fileName);
+  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf("/"));
 
-  dirPath = path.resolve(dirPath, fileName);
+  configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
 
-  if (existsSync(processPath)) {
-    configFile = processPath;
-  } else {
-    configFile = dirPath;
-  }
-  return configFile;
+  return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault
 
 }
 

@@ -4,6 +4,7 @@ var args = require('yargs').argv;
 var plugins = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
 var helper = require('../src/resources.js');
+var path = require('path');
 var PluginError = plugins.util.PluginError;
 
 var config = {
@@ -15,22 +16,18 @@ var config = {
   disableJSCS: false,
   linter: 'JSHint'
 };
-
 var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
+var esLintConfig = resolveConfigFile('.eslintrc');
 
 function resolveConfigFile(fileName) {
-  var configFile;
-  if (existsSync(process.cwd() + '/' + fileName)) {
-    configFile = process.cwd() + '/' + fileName;
-  } else if (existsSync(__dirname + '/' + fileName)) {
-    configFile = __dirname + '/' + fileName;
-  } else {
-    // If the file isn't found, it uses the default configurations.
-    return;
-  }
 
-  return configFile;
+  var configFilesPathUser = path.resolve(process.cwd(), fileName);
+  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
+
+  configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
+
+  return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault;
 
 }
 
@@ -84,7 +81,7 @@ module.exports = function (gulp, options) {
     helper.log('Validating js with ESlint');
     return gulp
       .src(config.files)
-      .pipe(plugins.eslint())
+      .pipe(plugins.eslint(esLintConfig))
       .pipe(plugins.eslint.format())
       .pipe(plugins.eslint.failOnError());
 

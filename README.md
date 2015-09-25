@@ -20,7 +20,7 @@ _jenkins_: `TODO`
 ## Usage
 ```javascript
 var gulp = require('gulp');
-require('./node_modules/pipeline-test-node/src/index.js')(gulp);
+require('pipeline-test-node')(gulp);
 
 ```
 
@@ -38,7 +38,6 @@ Pipeline options:
 Default:
 ```javascript
 config = {
-  disableJSCS: false,
   files: [
     'test/*.js',
     'test/**/*.js'

@@ -9,11 +9,11 @@
 
 # Overview
 
-Gulp Pipeline that allows you to validate the js files within your project. It defines two gulp tasks to complete the validation. One uses JSHint and JSCS to complete the task, the other one uses ESLint.
+Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contians a validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or ESLint.
 
 This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the root folder of the project. This pipeline will prioritize your rules over the default configurations.
 
-_repo_: `ssh://git@projects.kenzanmedia.com:7999/key/pipeline-validate-js.git`
+_repo_: `ssh:git@github.com:kenzanmedia/pipeline-validate-js.git`
 
 _jenkins_: `TODO`
 
@@ -23,7 +23,7 @@ _jenkins_: `TODO`
 ## Usage
 ```javascript
 var gulp = require('gulp');
-require('pipeline-validate-js')();
+var validatePipeline = require('pipeline-validate-js')();
 
 
 gulp.task('default', function() {
@@ -53,11 +53,8 @@ Pipeline options:
 
 ## Results
 
-This pipeline adds the following task to the gulp object.
+This pipeline returns an object. This object receives a stream with the files to validate. You can call the _validteJS_ method to run the validation. The method will report if any issues were found during validation. If no issues are present, it will return the stream.
 
-__pipelineValidateJS__
-
-Validates the files found on the paths provided in the options. It will use _ESLint_ if `config.linter = ESLint`. Otherwise it will use _JSHint_ and _JSCS_-- the last one only if disableJSCS is _false_
 
 
 ## Dependencies

@@ -9,7 +9,7 @@
 
 # Overview
 
-Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contians a validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or ESLint.
+Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contains a validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or ESLint.
 
 This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the root folder of the project. This pipeline will prioritize your rules over the default configurations.
 

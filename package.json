@@ -1,6 +1,6 @@
 {
   "name": "pipeline-test-node",
-  "version": "0.1.0",
+  "version": "0.1.0-SNAPSHOT",
   "description": "Gulp pipeline to run tests locally using node and mocha",
   "author": "Juan P. Osorio <jposorio@kenzan.com> (https://github.com/jpoo90)",
   "contributors": [
@@ -44,8 +44,9 @@
     "gulp-load-plugins": "0.10.0",
     "gulp-mocha": "2.1.3",
     "gulp-util": "3.0.6",
+    "lazypipe": "1.0.1",
     "mocha": "2.3.3",
     "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#aeb41b4423ca07d5bab17ce28e6bdfb1b4e7b364",
-    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#22095e89d0b5a4a8d7b63a6c3978ffc0e8a2238c"
+    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#55c0ec3a51799e83d4748ffbb700687fb818b8f5"
   }
 }

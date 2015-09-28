@@ -8,7 +8,7 @@
 
 # Overview
 
-Gulp Pipeline that generates a gulp task to run tests locally using `mocha`.
+Gulp Pipeline that generates an object which has a method to run unit tests locally using `mocha`.
 
 _repo_: `ssh://git@github.com:kenzanmedia/pipeline-test-node.git`
 
@@ -20,8 +20,13 @@ _jenkins_: `TODO`
 ## Usage
 ```javascript
 var gulp = require('gulp');
-require('pipeline-test-node')(gulp);
+var testPipeline = require('pipeline-test-node')();
 
+gulp.task('default', function() {
+  return gulp
+    .src(files)
+    .pipe(testPipeline.test());
+});
 ```
 
 
@@ -30,18 +35,12 @@ require('pipeline-test-node')(gulp);
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
-    + __config.files:__ Array with the paths that contain the tests to run.
-
     + __config.mochaConfig:__ Array to define mocha configurations. You can find the properties in [Mocha options](http://mochajs.org/#usage)
 
 
 Default:
 ```javascript
 config = {
-  files: [
-    'test/*.js',
-    'test/**/*.js'
-  ],
   mochaConfig: {
     reporter: 'List',
   }
@@ -50,15 +49,10 @@ config = {
 
 ## Results
 
-This pipeline adds the following task to the gulp object.
-
-  * __pipelineTest__
-
-  This task runs the tests found on the paths provided in the option _config.files_. It uses mocha, and validates based on the configuration provided in _config.mochaConfig_. If no configuration is provided it will use mocha's default.  
+  This pipeline returns an object. This object receives a stream with the files to test, and you can call the _test_ method to run the unit tests. It uses mocha, and validates based on the configuration provided in _config.mochaConfig_. If no configuration is provided it will use mocha's default.  
 
 
 ## Dependencies
-<!-- TODO Update pipeline-handyman npm link-->
 
 | Package       | npm link   |
 | ------------- |:-------------:|
@@ -68,6 +62,7 @@ This pipeline adds the following task to the gulp object.
 |gulp-mocha| https://www.npmjs.com/package/gulp-mocha |
 |gulp-util| https://www.npmjs.com/package/gulp-util |
 |mocha| https://www.npmjs.com/package/mocha |
+|lazypipe| https://www.npmjs.com/package/lazypipe |
 |pipeline-handyman| git+ssh://git@github.com:kenzanmedia/pipeline-handyman.git#KEY-24-handyman-pipeline |
 
 

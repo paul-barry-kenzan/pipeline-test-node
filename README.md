@@ -12,10 +12,10 @@ Gulp Pipeline that generates an object which has a method to run unit tests loca
 
 _repo_: `ssh://git@github.com:kenzanmedia/pipeline-test-node.git`
 
-_jenkins_: `TODO`
+_jenkins_: `https://kenzan.ci.cloudbees.com/job/CI-pipelines-test-node/`
 
 ## Install
-`TODO`
+`npm install git+ssh://git@github.com/kenzanmedia/pipeline-test-node.git`
 
 ## Usage
 ```javascript
@@ -28,7 +28,6 @@ gulp.task('default', function() {
     .pipe(testPipeline.test());
 });
 ```
-
 
 ## Options
 
@@ -50,20 +49,6 @@ config = {
 ## Results
 
   This pipeline returns an object. This object receives a stream with the files to test, and you can call the _test_ method to run the unit tests. It uses mocha, and validates based on the configuration provided in _config.mochaConfig_. If no configuration is provided it will use mocha's default.  
-
-
-## Dependencies
-
-| Package       | npm link   |
-| ------------- |:-------------:|
-|chai| https://www.npmjs.com/package/chai |
-|gulp| https://www.npmjs.com/package/gulp |
-|gulp-load-plugins| https://www.npmjs.com/package/gulp-load-plugins |
-|gulp-mocha| https://www.npmjs.com/package/gulp-mocha |
-|gulp-util| https://www.npmjs.com/package/gulp-util |
-|mocha| https://www.npmjs.com/package/mocha |
-|lazypipe| https://www.npmjs.com/package/lazypipe |
-|pipeline-handyman| git+ssh://git@github.com:kenzanmedia/pipeline-handyman.git#KEY-24-handyman-pipeline |
 
 
 ## LICENSE

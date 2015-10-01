@@ -24,7 +24,7 @@ var testPipeline = require('pipeline-test-node')();
 
 gulp.task('default', function() {
   return gulp
-    .src(files)
+    .src(['src/**/*.spec.js'])
     .pipe(testPipeline.test());
 });
 ```

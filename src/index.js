@@ -14,7 +14,7 @@ var config = {
     mocha: {
       reporter: 'mocha-junit-reporter',
       reporterOptions: {
-        mochaFile: './test-results/test-results.xml'
+        mochaFile: './reports/test-results/test-results.xml'
       }
     },
     istanbul: {

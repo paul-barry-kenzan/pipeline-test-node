@@ -18,7 +18,7 @@ describe('pipeline-test-node', function() {
         .pipe(testPipeline.test())
         .on('end', function () {
 
-          fs.stat('test-results/test-results.xml', function(err) {
+          fs.stat('reports/test-results/test-results.xml', function(err) {
             expect(err).to.be.a('null');
           });
 

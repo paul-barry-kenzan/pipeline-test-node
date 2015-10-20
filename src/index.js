@@ -2,7 +2,7 @@
 
 var handyman = require('pipeline-handyman');
 var lazypipe = require('lazypipe');
-var plugins = require('gulp-load-plugins')({lazy: true});
+var mocha = require('gulp-mocha');
 
 var config = {
   plugins: {
@@ -30,7 +30,9 @@ function testPipeline(options) {
   return pipeline;
 
   function nodeTest() {
+    handyman.log('Running mocha tests');
+
     return lazypipe()
-      .pipe(plugins.mocha, config.plugins.mocha);
+      .pipe(mocha, config.plugins.mocha);
   }
 }

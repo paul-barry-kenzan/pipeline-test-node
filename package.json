@@ -48,8 +48,8 @@
     "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.0.1"
   },
   "devDependencies": {
+    "chai": "3.3.0",
     "del": "2.0.2",
-    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0",
-    "stream-assert": "^2.0.3"
+    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0"
   }
 }

@@ -1,11 +1,10 @@
 'use strict';
 
-var assert = require('stream-assert');
 var del = require('del');
+var expect = require('chai').expect;
 var fs = require('fs');
 var gulp = require('gulp');
-//XXX TODO hack to "reset" setting from gulpfile.js so we get generated xml
-var testPipeline = require('../src/index.js')({plugins: {mocha: {reporter: 'spec'}}});
+var testPipeline = require('../src/index.js')();
 
 describe('pipeline-test-node', function() {
 
@@ -19,15 +18,8 @@ describe('pipeline-test-node', function() {
         .pipe(testPipeline.test())
         .on('end', function () {
           fs.stat('reports/test-results.xml', function(err) {
-            console.log(process.cwd());
-            console.log(fs.existsSync('src/index.js'));
 
-            if (err === null) {
-              console.log('here');
-              assert.equal(true, true);
-            } else {
-              console.log('not here');
-            }
+            expect(err).to.be.a('null');
             done();
           });
         });

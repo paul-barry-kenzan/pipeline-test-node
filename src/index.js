@@ -14,7 +14,7 @@ var config = {
     mocha: {
       reporter: 'mocha-junit-reporter',
       reporterOptions: {
-        mochaFile: './reports/test-results/test-results.xml'
+        mochaFile: './test-results/test-results.xml'
       }
     },
     istanbul: {
@@ -36,6 +36,7 @@ module.exports = testPipeline;
 
 function testPipeline(options) {
 
+  options = options || {};
   config = handyman.updateConf(config, options);
 
   var pipeline = {
@@ -60,10 +61,9 @@ function testPipeline(options) {
 
     nodeCoverage();
 
-    //Enforce a coverage of at least 90%
-    //.pipe(istanbul.enforceThresholds, config.plugins.istanbul);
     return lazypipe()
       .pipe(mocha, config.plugins.mocha)
-      .pipe(istanbul.writeReports);
+      .pipe(istanbul.writeReports)
+      .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
   }
 }

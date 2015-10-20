@@ -10,7 +10,7 @@ describe('pipeline-test-node', function() {
 
   describe('Test Results Generations', function() {
 
-    it('should test that reports were generated correctly', function (done) {
+    it('should test that reports were generated correctly with default config', function (done) {
       //remove existing reports to avoid false positives
       del.sync(['./reports']);
 
@@ -18,7 +18,7 @@ describe('pipeline-test-node', function() {
         .pipe(testPipeline.test())
         .on('end', function () {
 
-          fs.stat('reports/test-results/test-results.xml', function(err) {
+          fs.stat('test-results/test-results.xml', function(err) {
             expect(err).to.be.a('null');
           });
 

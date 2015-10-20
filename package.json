@@ -43,10 +43,14 @@
     "gulp": "3.9.0",
     "gulp-load-plugins": "0.10.0",
     "gulp-mocha": "2.1.3",
-    "gulp-util": "3.0.6",
     "lazypipe": "1.0.1",
     "mocha": "2.3.3",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.0.1",
-    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0"
+    "mocha-junit-reporter": "^1.8.0",
+    "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.0.1"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0",
+    "stream-assert": "^2.0.3"
   }
 }

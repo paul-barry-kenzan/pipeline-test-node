@@ -13,12 +13,12 @@ Gulp Pipeline that allows you to validate the js files within your project. It d
 
 This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the root folder of the project. This pipeline will prioritize your rules over the default configurations.
 
-_repo_: `ssh:git@github.com:kenzanmedia/pipeline-validate-js.git`
+_repo_: `https://github.com/kenzanmedia/pipeline-validate-js/`
 
 _jenkins_: `TODO`
 
 ## Install
-`TODO`
+`npm install ssh:git@github.com:kenzanmedia/pipeline-validate-js.git`
 
 ## Usage
 ```javascript

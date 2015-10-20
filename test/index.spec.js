@@ -10,18 +10,27 @@ describe('pipeline-test-node', function() {
 
   describe('Test Results Generations', function() {
 
-    it('should test that a test-results.xml report was generated', function (done) {
+    it('should test that reports were generated correctly', function (done) {
       //remove existing reports to avoid false positives
       del.sync(['./reports']);
 
       gulp.src('test/**/*.js')
         .pipe(testPipeline.test())
         .on('end', function () {
-          fs.stat('reports/test-results.xml', function(err) {
 
+          fs.stat('reports/test-results/test-results.xml', function(err) {
             expect(err).to.be.a('null');
-            done();
           });
+
+          fs.statSync('coverage/lcov-report/index.html', function(err) {
+            expect(err).to.be.a('null');
+          });
+
+          fs.statSync('coverage/coverage-final.json', function(err) {
+            expect(err).to.be.a('null');
+          });
+
+          done();
         });
     });
 

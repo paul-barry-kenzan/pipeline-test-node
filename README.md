@@ -34,6 +34,8 @@ gulp.task('default', function() {
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
+    + __plugins.istanbul:__ Object to define instanbul configurations. You can find the properties in the [Istanbul API](https://github.com/SBoudrias/gulp-istanbul#api)
+
     + __plugins.mocha:__ Object to define mocha configurations. You can find the properties in [Mocha options](http://mochajs.org/#usage)
 
 
@@ -41,6 +43,11 @@ Default:
 ```javascript
 config = {
   plugins: {
+    istanbul: {
+      thresholds: {
+        global: 90
+      }
+    },
     mocha: {
       reporter: 'spec'
     }

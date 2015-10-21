@@ -1,7 +1,7 @@
 {
   "name": "pipeline-test-node",
-  "version": "0.1.0-SNAPSHOT",
-  "description": "Gulp pipeline to run tests locally using node and mocha",
+  "version": "0.2.0",
+  "description": "Gulp pipeline to run tests using node and mocha",
   "author": "Juan P. Osorio <jposorio@kenzan.com> (https://github.com/jpoo90)",
   "contributors": [
     {

@@ -39,6 +39,7 @@
   "analyze": true,
   "license": "ISC",
   "dependencies": {
+    "chai": "3.3.0",
     "gulp": "3.9.0",
     "gulp-istanbul": "0.10.2",
     "gulp-load-plugins": "0.10.0",
@@ -49,7 +50,6 @@
     "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.0.1"
   },
   "devDependencies": {
-    "chai": "3.3.0",
     "del": "2.0.2",
     "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0"
   }

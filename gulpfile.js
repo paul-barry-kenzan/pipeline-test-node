@@ -11,9 +11,14 @@ var config = {
   ]
 };
 
-gulp.task('default', function() {
+gulp.task('test', function(){
   return gulp
     .src(config.files)
-    .pipe(validatePipeline.validateJS())
     .pipe(testPipeline.test());
+});
+
+gulp.task('build', ['test'], function() {
+  return gulp
+    .src(config.files)
+    .pipe(validatePipeline.validateJS());
 });

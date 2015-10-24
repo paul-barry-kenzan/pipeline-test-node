@@ -3,9 +3,8 @@
 var args = require('yargs').argv;
 var plugins = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
-var helper = require('../src/resources.js');
+var handyman = require('pipeline-handyman');
 var path = require('path');
-// var PluginError = plugins.util.PluginError;
 var lazypipe = require('lazypipe');
 
 var config = {
@@ -41,7 +40,7 @@ function existsSync(filename) {
 function validatePipeline(options) {
 
   if (options) {
-    config = helper.updateConf(config, options);
+    config = handyman.updateConf(config, options);
   }
 
   var pipeline = {
@@ -60,7 +59,7 @@ function validatePipeline(options) {
 }
 
 function validateJSHint() {
-  helper.log('Validating js with JSHInt and JSCS');
+  handyman.log('Validating js with JSHInt and JSCS');
   return lazypipe()
     .pipe(function() {
       return plugins.if(args.verbose, plugins.print());
@@ -82,7 +81,7 @@ function jsValidationCombiner() {
 }
 
 function validateES() {
-  helper.log('Validating js with ESlint');
+  handyman.log('Validating js with ESlint');
   return lazypipe()
     .pipe(plugins.eslint, esLintConfig)
     .pipe(plugins.eslint.format)

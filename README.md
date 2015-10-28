@@ -10,7 +10,7 @@
 
 Gulp Pipeline that generates an object which has a method to run unit tests locally using `mocha`.
 
-_repo_: `ssh://git@github.com:kenzanmedia/pipeline-test-node.git`
+_repo_: `https://github.com/kenzanmedia/pipeline-test-node.git`
 
 _jenkins_: `https://kenzan.ci.cloudbees.com/job/CI-pipelines-test-node/`
 

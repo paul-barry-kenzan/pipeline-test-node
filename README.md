@@ -5,7 +5,7 @@
 
 | Package       | Description   | Version|
 | ------------- |:-------------:| -----:|
-| pipeline-validate-js| Pipeline to validate js files | 0.1.0 |
+| pipeline-validate-js| Pipeline to validate js files | 0.2.0 |
 
 # Overview
 

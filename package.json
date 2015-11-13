@@ -58,7 +58,7 @@
     "jshint-stylish": "2.0.1",
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git",
+    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git#b45db0ef5eee6de4c95af1b5a62374e120508fb3",
     "yargs": "3.25.0"
   }
 }

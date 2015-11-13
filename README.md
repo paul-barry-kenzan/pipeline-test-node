@@ -10,12 +10,9 @@
 
 Gulp Pipeline that generates an object which has a method to run unit tests locally using `mocha`.
 
-_repo_: `https://github.com/kenzanmedia/pipeline-test-node.git`
-
-_jenkins_: `https://kenzan.ci.cloudbees.com/job/CI-pipelines-test-node/`
-
 ## Install
-`npm install git+ssh://git@github.com/kenzanmedia/pipeline-test-node.git`
+
+`npm install git://github.com/kenzanlabs/pipeline-test-node.git --save-dev`
 
 ## Usage
 ```javascript

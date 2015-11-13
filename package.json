@@ -19,7 +19,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "ssh://git@projects.kenzanmedia.com:7999/key/pipeline-validate-js.git"
+    "url": "https://github.com/kenzanlabs/pipeline-validate-js"
   },
   "keywords": [
     "Gulp",
@@ -57,7 +57,7 @@
     "jshint-stylish": "2.0.1",
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.1.0",
+    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git#0.1.0",
     "yargs": "3.25.0"
   }
 }

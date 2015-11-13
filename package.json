@@ -1,6 +1,6 @@
 {
   "name": "pipeline-validate-js",
-  "version": "0.2.0",
+  "version": "0.3.0-SNAPSHOT",
   "description": "Gulp pipeline to validate js files using JSHint and JSCS or ESLint",
   "author": "Juan P. Osorio <jposorio@kenzan.com> (https://github.com/jpoo90)",
   "contributors": [

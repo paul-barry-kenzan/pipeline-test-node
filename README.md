@@ -19,7 +19,7 @@ root folder of the project. This pipeline will prioritize your rules over the de
 
 ## Install
 
-`npm install git://github.com:kenzanlabs/pipeline-validate-js.git --save-dev`
+`npm install git://github.com/kenzanlabs/pipeline-validate-js.git --save-dev`
 
 ## Usage
 ```javascript

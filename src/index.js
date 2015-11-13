@@ -37,7 +37,7 @@ module.exports = testPipeline;
 function testPipeline(options) {
 
   options = options || {};
-  config = handyman.updateConf(config, options);
+  config = handyman.mergeConf(config, options);
 
   var pipeline = {
     test: nodeTest()

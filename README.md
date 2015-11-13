@@ -1,24 +1,25 @@
-## Pipeline-validate-js
+## pipeline-validate-js
 
 
 ## Information
 
 | Package       | Description   | Version|
 | ------------- |:-------------:| -----:|
-| Pipeline-validate-js| Pipeline to validate js files | 0.1.0 |
+| pipeline-validate-js| Pipeline to validate js files | 0.1.0 |
 
 # Overview
 
-Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contains a validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or ESLint.
+Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contains a 
+validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or 
+ESLint.
 
-This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the root folder of the project. This pipeline will prioritize your rules over the default configurations.
-
-_repo_: `https://github.com/kenzanmedia/pipeline-validate-js/`
-
-_jenkins_: `TODO`
+This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other 
+rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the 
+root folder of the project. This pipeline will prioritize your rules over the default configurations.
 
 ## Install
-`npm install ssh:git@github.com:kenzanmedia/pipeline-validate-js.git`
+
+`npm install git://github.com/kenzanlabs/pipeline-validate-js.git --save-dev`
 
 ## Usage
 ```javascript
@@ -53,7 +54,9 @@ Pipeline options:
 
 ## Results
 
-This pipeline returns an object. This object receives a stream with the files to validate. You can call the _validteJS_ method to run the validation. The method will report if any issues were found during validation. If no issues are present, it will return the stream.
+This pipeline returns an object. This object receives a stream with the files to validate. You can call the _validteJS_ 
+method to run the validation. The method will report if any issues were found during validation. If no issues are 
+present, it will return the stream.
 
 ## LICENSE
 Copyright 2015 Kenzan

@@ -25,6 +25,7 @@
     "Gulp",
     "jshint",
     "jscs",
+    "eslint",
     "Keystone",
     "Pipeline"
   ],

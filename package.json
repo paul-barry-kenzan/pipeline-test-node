@@ -24,6 +24,7 @@
   "keywords": [
     "Gulp",
     "Tools",
+    "Testing",
     "Keystone",
     "Pipeline"
   ],
@@ -37,7 +38,7 @@
     "npm": ">=1.0.20"
   },
   "analyze": true,
-  "license": "ISC",
+  "license": "Apache",
   "dependencies": {
     "chai": "3.3.0",
     "gulp": "3.9.0",
@@ -47,10 +48,10 @@
     "lazypipe": "1.0.1",
     "mocha": "2.3.3",
     "mocha-junit-reporter": "1.8.0",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git"
+    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git#0.2.0"
   },
   "devDependencies": {
     "del": "2.0.2",
-    "pipeline-validate-js": "git+ssh://git@github.com/kenzanlabs/pipeline-validate-js.git"
+    "pipeline-validate-js": "git+ssh://git@github.com/kenzanlabs/pipeline-validate-js.git#0.2.0"
   }
 }

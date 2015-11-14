@@ -50,9 +50,9 @@ Pipeline options:
   Default:
   ```javascript
   config = {
-        disableJSCS: false,
-        linter: 'JSHint'  
-      }
+    disableJSCS: false,
+    linter: 'JSHint'  
+  }
   ```  
 
 ## Results
@@ -62,7 +62,7 @@ method to run the validation. The method will report if any issues were found du
 present, it will return the stream.
 
 ## LICENSE
-Copyright 2015 Kenzan
+Copyright 2015 Kenzan, LLC <http://kenzan.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

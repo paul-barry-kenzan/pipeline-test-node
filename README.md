@@ -45,13 +45,18 @@ Pipeline options:
     + __config.disableJSCS:__ If _true_ doesn't validate the files using `jscsrc`. You might want to disable JSCS if working on a legacy project. Otherwise this option should _false_.
 
     + __config.linter:__ Sets the desire rules to validate the files. It can be set to `JSHint` or `ESLint`.
+    
+    + __config.reporter:__ passthru reporting configuration options to JSHint
 
 
   Default:
   ```javascript
   config = {
     disableJSCS: false,
-    linter: 'JSHint'  
+    linter: 'JSHint',
+    reporter: {
+      verbose: true
+    }
   }
   ```  
 

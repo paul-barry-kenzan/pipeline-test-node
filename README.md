@@ -17,8 +17,7 @@ This pipeline also offers the possibility of using personalized lint rules in ot
 rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the 
 root folder of the project. This pipeline will prioritize your rules over the default configurations.
 
-**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.
-Also, as part of a repo migration, version 0.1.0 will not install, so please use any of the new versions**
+**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.**
 
 ## Install
 

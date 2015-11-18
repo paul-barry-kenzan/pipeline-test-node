@@ -1,6 +1,6 @@
 {
   "name": "pipeline-test-node",
-  "version": "0.4.0-RC1",
+  "version": "0.4.0",
   "description": "Gulp pipeline to run tests using node and mocha",
   "author": "Juan P. Osorio <jposorio@kenzan.com> (https://github.com/jpoo90)",
   "contributors": [
@@ -48,10 +48,10 @@
     "lazypipe": "1.0.1",
     "mocha": "2.3.3",
     "mocha-junit-reporter": "1.8.0",
-    "pipeline-handyman": "0.3.0-RC1"
+    "pipeline-handyman": "0.3.0"
   },
   "devDependencies": {
     "del": "2.0.2",
-    "pipeline-validate-js": "0.3.0-RC1"
+    "pipeline-validate-js": "0.3.0"
   }
 }

@@ -15,7 +15,7 @@ Also, as part of a repo migration, version 0.2.0 will not install, so please use
 
 ## Install
 
-`npm install git://github.com/kenzanlabs/pipeline-test-node.git --save-dev`
+`npm install pipeline-test-node --save-dev`
 
 ## Usage
 ```javascript

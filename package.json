@@ -54,7 +54,7 @@
     "jshint-stylish": "2.0.1",
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
-    "pipeline-handyman": "0.3.0-RC1",
+    "pipeline-handyman": "0.3.0",
     "yargs": "3.25.0"
   },
   "devDependencies": {

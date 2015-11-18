@@ -10,8 +10,7 @@
 
 Gulp Pipeline that generates an object which has a method to run unit tests locally using `mocha`.
 
-**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.
-Also, as part of a repo migration, version 0.2.0 will not install, so please use any of the newer versions**
+**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.**
 
 ## Install
 

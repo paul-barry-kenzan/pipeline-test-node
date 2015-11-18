@@ -22,7 +22,7 @@ Also, as part of a repo migration, version 0.1.0 will not install, so please use
 
 ## Install
 
-`npm install git://github.com/kenzanlabs/pipeline-validate-js.git --save-dev`
+`npm install pipeline-validate-js --save-dev`
 
 ## Usage
 ```javascript

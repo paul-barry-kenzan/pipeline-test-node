@@ -9,7 +9,10 @@ var lazypipe = require('lazypipe');
 
 var config = {
   disableJSCS: false,
-  linter: 'JSHint'
+  linter: 'JSHint',
+  reporter: {
+    verbose: true
+  }
 };
 var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
@@ -69,6 +72,7 @@ function validateJSHint() {
       return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
     })
     .pipe(plugins.jshint.reporter, 'jshint-stylish')
+    .pipe(plugins.jshint.reporter, 'jshint-stylish', config.reporter)
     .pipe(plugins.jshint.reporter, 'fail');
 }
 

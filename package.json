@@ -29,10 +29,6 @@
     "Keystone",
     "Pipeline"
   ],
-  "devDependencies": {
-    "chai": "3.2.0",
-    "mocha": "2.3.2"
-  },
   "preferGlobal": false,
   "private": false,
   "publishConfig": {
@@ -58,7 +54,11 @@
     "jshint-stylish": "2.0.1",
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanlabs/pipeline-handyman.git#0.2.0",
+    "pipeline-handyman": "0.3.0-SNAPSHOT",
     "yargs": "3.25.0"
+  },
+  "devDependencies": {
+    "chai": "3.2.0",
+    "mocha": "2.3.2"
   }
 }

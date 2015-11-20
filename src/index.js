@@ -43,7 +43,7 @@ function existsSync(filename) {
 function validatePipeline(options) {
 
   if (options) {
-    config = handyman.updateConf(config, options);
+    config = handyman.mergeConf(config, options);
   }
 
   var pipeline = {

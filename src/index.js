@@ -32,11 +32,15 @@ function resolveConfigFile(fileName) {
 }
 
 function existsSync(filename) {
-  try {
-    fs.accessSync(filename);
-    return true;
-  } catch (error) {
-    return false;
+  if (typeof(fs.accessSync) === 'function') { // newer node
+    try {
+      fs.accessSync(filename);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  } else { // older node
+    return fs.existsSync(filename);
   }
 }
 

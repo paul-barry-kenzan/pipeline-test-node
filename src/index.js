@@ -37,6 +37,10 @@ function existsSync(filename) {
       fs.accessSync(filename);
       return true;
     } catch (error) {
+      if (typeof(error) !== 'object' || error.code !== 'ENOENT') {
+        handyman.log('Unable to access ' + filename + ':');
+        handyman.log(error.stack);
+      }
       return false;
     }
   } else { // older node

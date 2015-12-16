@@ -32,11 +32,19 @@ function resolveConfigFile(fileName) {
 }
 
 function existsSync(filename) {
-  try {
-    fs.accessSync(filename);
-    return true;
-  } catch (error) {
-    return false;
+  if (typeof(fs.accessSync) === 'function') { // newer node
+    try {
+      fs.accessSync(filename);
+      return true;
+    } catch (error) {
+      if (typeof(error) !== 'object' || error.code !== 'ENOENT') {
+        handyman.log('Unable to access ' + filename + ':');
+        handyman.log(error.stack);
+      }
+      return false;
+    }
+  } else { // older node
+    return fs.existsSync(filename);
   }
 }
 

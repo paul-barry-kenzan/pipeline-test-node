@@ -8,7 +8,7 @@ var mocha = require('gulp-mocha');
 
 var config = {
   files: {
-    src: './src/*.js'
+    src: ['./src/*.js']
   },
   plugins: {
     mocha: {

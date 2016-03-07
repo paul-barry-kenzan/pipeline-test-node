@@ -19,11 +19,20 @@ Gulp Pipeline that generates an object which has a method to run unit tests loca
 ## Usage
 ```javascript
 var gulp = require('gulp');
-var testPipeline = require('pipeline-test-node')();
+var config = {
+  files: {
+    src: [
+      'path/to/files/*.js',
+      'path/to/tests/*.js'
+    ]  
+  }
+}
+
+var testPipeline = require('pipeline-test-node')(config);
 
 gulp.task('default', function() {
   return gulp
-    .src(['src/**/*.spec.js'])
+    .src(['src/**/*.spec.js'], {read: false})
     .pipe(testPipeline.test());
 });
 ```

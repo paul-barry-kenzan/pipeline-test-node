@@ -1,31 +1,50 @@
 'use strict';
+var should = require('chai').should();
+var sinon = require('sinon');
+var handyman = require('pipeline-handyman');
+var validatePipeline =  require('../src/index.js');
 
-// TODO Validate stream input and stream output.
+describe('pipeline-validateJS', function(){
+  it('should return a object', function () {
+    (typeof validatePipeline).should.equal('object');
+  });
+  it('should contain a validateJS method', function(){
+    (validatePipeline.validateJS).should.exist;
+    (typeof validatePipeline.validateJS).should.equal('function');
+  });
+  describe('validateJS method', function (){
+    var stream = validatePipeline.validateJS();
 
-// var validatePipeline = require('../src/index.js')();
-// var should = require('chai').should();
-// var gulp = require('gulp');
+    it('should return an object', function(){
+      (typeof stream).should.equal('object');
+    });
+    describe('validateJS log outputs', function(){
+      var sandbox;
+      beforeEach(function() {
+        sandbox = sinon.sandbox.create();
+      });
 
-describe('pipeline-validate-js', function() {
-//   it('should emit error on streamed file', function (done) {
-//     gulp
-//       .src('../src/resources.js')
-//       .pipe(validatePipeline.validateJS())
-//       .on('data', function (err) {
-//         err.message.should.eql('Streaming not supported');
-//         done();
-//       });
-//     done();
-//   });
+      afterEach(function(){
+        sandbox.restore();
+      });
 
-  // it('should emit error on streamed file', function (done) {
-  //   var stream = validatePipeline.validateJS();
-  //   stream.on('data', function() {
-  //     done();
-  //   });
-  //   stream.on('end', function() {
-  //       done();
-  //   });
-  //   stream.end(done);
-  // });
+      it("should test log", function() {
+        var spy1 = sandbox.spy(handyman, 'log');
+        validatePipeline.validateJS();
+        (spy1.args[0][0]).should.equal('Validating js with JSHInt and JSCS');
+      });
+
+      it("should test log", function() {
+        var spy1 = sandbox.spy(handyman, 'log');
+        validatePipeline.validateJS(234);
+        (spy1.args[0][0]).should.equal('Validating js with JSHInt and JSCS, Options not valid');
+      });
+
+      it("should test log", function() {
+        var spy1 = sandbox.spy(handyman, 'log');
+        validatePipeline.validateJS({linter: 'ESLint'});
+        (spy1.args[0][0]).should.equal('Validating js with ESlint');
+      });
+    })
+  });
 });

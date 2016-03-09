@@ -19,31 +19,29 @@ describe('pipeline-validateJS', function(){
       (typeof stream).should.equal('object');
     });
     describe('validateJS log outputs', function(){
-      var sandbox;
+      var sandbox, spy;
       beforeEach(function() {
         sandbox = sinon.sandbox.create();
+        spy = sandbox.spy(handyman, 'log');
       });
 
       afterEach(function(){
         sandbox.restore();
       });
 
-      it("should test log", function() {
-        var spy1 = sandbox.spy(handyman, 'log');
+      it("should test validateJS() with no options", function() {
         validatePipeline.validateJS();
-        (spy1.args[0][0]).should.equal('Validating js with JSHInt and JSCS');
+        (spy.args[0][0]).should.equal('Validating js with JSHInt and JSCS');
       });
 
-      it("should test log", function() {
-        var spy1 = sandbox.spy(handyman, 'log');
+      it("should test validateJS() with invalid options", function() {
         validatePipeline.validateJS(234);
-        (spy1.args[0][0]).should.equal('Validating js with JSHInt and JSCS, Options not valid');
+        (spy.args[0][0]).should.equal('Validating js with JSHInt and JSCS, Options not valid');
       });
 
-      it("should test log", function() {
-        var spy1 = sandbox.spy(handyman, 'log');
+      it("should test validateJS() with linter options", function() {
         validatePipeline.validateJS({linter: 'ESLint'});
-        (spy1.args[0][0]).should.equal('Validating js with ESlint');
+        (spy.args[0][0]).should.equal('Validating js with ESlint');
       });
     })
   });

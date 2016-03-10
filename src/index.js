@@ -9,6 +9,9 @@ var lazypipe = require('lazypipe');
 
 var config = {
   disableJSCS: false,
+  parseOptions: {
+    ecmaVersion: 5
+  },
   linter: 'JSHint',
   reporter: {
     verbose: true
@@ -18,36 +21,34 @@ var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
-module.exports = validatePipeline();
-
-function validatePipeline () {
-  var pipeline = {};
-
-  pipeline.validateJS = function (options) {
-
+module.exports = {
+  validateJS : function (options) {
     if (options) {
+      console.log(options);
+      if(options.contains(parseOptions()){
+        options = {parseOptions: options}
+      })
       config = handyman.mergeConf(config, options);
 
-      switch (config.linter) {
+      switch (config.parseOptions.ecmaVersion) {
 
-        case 'ESLint':
-          return validateES();
+        case 6:
+          handyman.log('No support for Ecmascript 7 as of now');
+          return;
 
         default:
-          handyman.log('Validating js with JSHInt and JSCS, Options not valid');
-          return validateJSHint();
+          handyman.log('Validating js with JSCS, Options not valid');
       }
-
-    }else {
-      return validateJSHint();
+      console.log(config);
     }
-  };
+    if(config.ecmaVersion)
 
-  return pipeline;
+    return validateES();
+  }
 }
 
 function validateJSHint() {
-  handyman.log('Validating js with JSHInt and JSCS');
+  handyman.log('Validating js with JSCS');
   var stream = lazypipe()
     .pipe(function() {
       return plugins.if(args.verbose, plugins.print());
@@ -56,9 +57,6 @@ function validateJSHint() {
     .pipe(function() {
       return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
     })
-    .pipe(plugins.jshint.reporter, 'jshint-stylish')
-    .pipe(plugins.jshint.reporter, 'jshint-stylish', config.reporter)
-    .pipe(plugins.jshint.reporter, 'fail');
 
   return stream();
 }
@@ -66,7 +64,6 @@ function validateJSHint() {
 function jsValidationCombiner() {
 
   return plugins.piece(
-    plugins.jshint(jsHintConfig),
     plugins.if(!config.disableJSCS, plugins.jscs(jscsConfig))
   );
 }
@@ -100,8 +97,17 @@ function existsSync(filename) {
 }
 
 function validateES() {
+
+  console.log('VALIDATE ES HAS BEEN CALLED')
   handyman.log('Validating js with ESlint');
   var stream = lazypipe()
+    .pipe(function() {
+      return plugins.if(args.verbose, plugins.print());
+    })
+    .pipe(jsValidationCombiner)
+    .pipe(function() {
+      return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
+    })
     .pipe(plugins.eslint, esLintConfig)
     .pipe(plugins.eslint.format)
     .pipe(plugins.eslint.failOnError);

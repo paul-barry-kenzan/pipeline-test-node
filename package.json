@@ -55,7 +55,7 @@
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
     "pipeline-handyman": "0.3.0",
-    "sinon": "^1.17.3",
+    "sinon": "1.17.3",
     "yargs": "3.25.0"
   },
   "devDependencies": {

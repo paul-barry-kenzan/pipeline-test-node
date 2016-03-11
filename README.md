@@ -26,13 +26,19 @@ root folder of the project. This pipeline will prioritize your rules over the de
 ## Usage
 ```javascript
 var gulp = require('gulp');
-var validatePipeline = require('pipeline-validate-js')();
+var validatePipeline = require('pipeline-validate-js');
 
 
 gulp.task('default', function() {
   return gulp
     .src(files)
     .pipe(validatePipeline.validateJS());
+});
+
+gulp.task('default', function() {
+  return gulp
+    .src(files)
+    .pipe(validatePipeline.validateJS({ecmaversion: 4}));
 });
 ```
 
@@ -43,7 +49,7 @@ Pipeline options:
 
     + __config.disableJSCS:__ If _true_ doesn't validate the files using `jscsrc`. You might want to disable JSCS if working on a legacy project. Otherwise this option should _false_.
 
-    + __config.linter:__ Sets the desire rules to validate the files. It can be set to `JSHint` or `ESLint`.
+    + __config.parseOptions.ecmaVersion:__ Sets the ecmaScript version to be linted, set to '5' by default.
     
     + __config.reporter:__ passthru reporting configuration options to JSHint
 
@@ -52,7 +58,9 @@ Pipeline options:
   ```javascript
   config = {
     disableJSCS: false,
-    linter: 'JSHint',
+    parseOptions: {
+      ecmaVersion: 5
+    },
     reporter: {
       verbose: true
     }

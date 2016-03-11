@@ -7,12 +7,13 @@ var handyman = require('pipeline-handyman');
 var path = require('path');
 var lazypipe = require('lazypipe');
 
+
+//change to pipelineConfig
 var config = {
   disableJSCS: false,
   parseOptions: {
     ecmaVersion: 5
   },
-  linter: 'JSCS',
   reporter: {
     verbose: true
   }
@@ -25,6 +26,11 @@ module.exports = {
   validateJS : function (options) {
     if(options){
       var keyArray = Object.keys(options);
+
+      if (typeof options !== 'object') {
+        handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
+      }
+
       for(var key in keyArray){
         if(keyArray[key] === 'ecmaVersion'){
           config.parseOptions.ecmaVersion = options.ecmaVersion
@@ -33,17 +39,12 @@ module.exports = {
     }
 
     switch(true){
+
       case config.parseOptions.ecmaVersion >= 3 && config.parseOptions.ecmaVersion <= 5:
-          handyman.log('ecma 5');
-          break;
-      case config.parseOptions.ecmaVersion === 6:
-          handyman.log('ecma 6');
-          break;
-      case config.parseOptions.ecmaVersion === 7:
-          handyman.log('ecma 7');
+          handyman.log('Validating js version ' + config.parseOptions.ecmaVersion + ' with ESlint');
           break;
       default:
-          handyman.log('default ecma5')
+          handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + config.parseOptions.ecmaVersion + ' is not supported! **')
 
     }
 
@@ -51,20 +52,6 @@ module.exports = {
   }
 
 }
-
-//function validateJSHint() {
-//  handyman.log('Validating js with JSCS');
-//  var stream = lazypipe()
-//    .pipe(function() {
-//      return plugins.if(args.verbose, plugins.print());
-//    })
-//    .pipe(jsValidationCombiner)
-//    .pipe(function() {
-//      return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
-//    })
-//
-//  return stream();
-//}
 
 function jsValidationCombiner() {
 
@@ -102,7 +89,6 @@ function existsSync(filename) {
 }
 
 function validateES() {
-  handyman.log('Validating js with ESlint');
   var stream = lazypipe()
     .pipe(function() {
       return plugins.if(args.verbose, plugins.print());

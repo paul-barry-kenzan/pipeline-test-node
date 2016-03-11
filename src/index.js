@@ -7,9 +7,7 @@ var handyman = require('pipeline-handyman');
 var path = require('path');
 var lazypipe = require('lazypipe');
 
-
-//change to pipelineConfig
-var config = {
+var pipelineConfig = {
   disableJSCS: false,
   parseOptions: {
     ecmaVersion: 5
@@ -18,45 +16,42 @@ var config = {
     verbose: true
   }
 };
-var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
   validateJS : function (options) {
-    if(options){
+    if (options) {
       var keyArray = Object.keys(options);
 
       if (typeof options !== 'object') {
         handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
       }
 
-      for(var key in keyArray){
-        if(keyArray[key] === 'ecmaVersion'){
-          config.parseOptions.ecmaVersion = options.ecmaVersion
+      for (var key in keyArray) {
+        if (keyArray[key] === 'ecmaVersion') {
+          pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion
         }
       }
     }
 
-    switch(true){
+    switch (true) {
 
-      case config.parseOptions.ecmaVersion >= 3 && config.parseOptions.ecmaVersion <= 5:
-          handyman.log('Validating js version ' + config.parseOptions.ecmaVersion + ' with ESlint');
+      case pipelineConfig.parseOptions.ecmaVersion >= 3 && pipelineConfig.parseOptions.ecmaVersion <= 5:
+          handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
           break;
       default:
-          handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + config.parseOptions.ecmaVersion + ' is not supported! **')
+          handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **')
 
     }
 
     return validateES();
   }
-
 }
 
 function jsValidationCombiner() {
-
   return plugins.piece(
-    plugins.if(!config.disableJSCS, plugins.jscs(jscsConfig))
+    plugins.if(!pipelineConfig.disableJSCS, plugins.jscs(jscsConfig))
   );
 }
 
@@ -95,7 +90,7 @@ function validateES() {
     })
     .pipe(jsValidationCombiner)
     .pipe(function() {
-      return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
+      return plugins.if(!pipelineConfig.disableJSCS, plugins.jscsStylish.combineWithHintResults());
     })
     .pipe(plugins.eslint, esLintConfig)
     .pipe(plugins.eslint.format)

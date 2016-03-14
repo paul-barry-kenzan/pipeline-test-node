@@ -10,11 +10,11 @@
 # Overview
 
 Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contains a 
-validateJS() function. Depending on the configuration, the function will use JSHint and JSCS to complete the task, or 
-ESLint.
+validateJS() function. The function will use ESLint to complete the task, with an option to enable JSCS.
+
 
 This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other 
-rules within your project you can define a `.jshintrc`, `.jscs` or a `.eslintrc` file. These files should be in the 
+rules within your project you can define `.jscs` or a `.eslintrc` file. These files should be in the 
 root folder of the project. This pipeline will prioritize your rules over the default configurations.
 
 **NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.**
@@ -50,8 +50,6 @@ Pipeline options:
     + __config.disableJSCS:__ If _true_ doesn't validate the files using `jscsrc`. You might want to disable JSCS if working on a legacy project. Otherwise this option should _false_.
 
     + __config.parseOptions.ecmaVersion:__ Sets the ecmaScript version to be linted, set to '5' by default.
-    
-    + __config.reporter:__ passthru reporting configuration options to JSHint
 
 
   Default:

@@ -25,8 +25,16 @@ var config = {
       'path/to/files/*.js',
       'path/to/tests/*.js'
     ]  
+  },
+  plugins: {
+    istanbul: {
+      reporters: ['text-summary'],
+      thresholds: {
+        global: 70
+      }
+    }
   }
-}
+};
 
 var testPipeline = require('pipeline-test-node')(config);
 

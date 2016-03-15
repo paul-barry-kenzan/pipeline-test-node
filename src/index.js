@@ -63,7 +63,7 @@ function testPipeline(options) {
 
     return lazypipe()
       .pipe(mocha, config.plugins.mocha)
-      .pipe(istanbul.writeReports)
+      .pipe(istanbul.writeReports, config.plugins.istanbul)
       .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
   }
 }

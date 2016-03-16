@@ -10,7 +10,7 @@ var lazypipe = require('lazypipe');
 var pipelineConfig = {
   disableJSCS: false,
   parseOptions: {
-    ecmaVersion: 5ç
+    ecmaVersion: 5
   },
   reporter: {
     verbose: true

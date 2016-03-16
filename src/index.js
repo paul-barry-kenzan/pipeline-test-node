@@ -20,7 +20,7 @@ var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
-  validateJS : function (options) {
+  validateJS: function (options) {
     if (options) {
       var keyArray = Object.keys(options);
 
@@ -38,10 +38,10 @@ module.exports = {
     switch (true) {
 
       case pipelineConfig.parseOptions.ecmaVersion >= 3 && pipelineConfig.parseOptions.ecmaVersion <= 5:
-          handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
-          break;
+        handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
+        break;
       default:
-          handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **')
+        handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **')
 
     }
 
@@ -85,11 +85,11 @@ function existsSync(filename) {
 
 function validateES() {
   var stream = lazypipe()
-    .pipe(function() {
+    .pipe(function () {
       return plugins.if(args.verbose, plugins.print());
     })
     .pipe(jsValidationCombiner)
-    .pipe(function() {
+    .pipe(function () {
       return plugins.if(!pipelineConfig.disableJSCS, plugins.jscsStylish.combineWithHintResults());
     })
     .pipe(plugins.eslint, esLintConfig)

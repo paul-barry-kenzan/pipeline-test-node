@@ -16,7 +16,7 @@
   "excludeFiles": ["node_modules/**", "bower_components/**"],
 
   "maximumLineLength": {
-    "value": 100,
+    "value": 200,
     "allowComments": true,
     "allowRegex": true
   },

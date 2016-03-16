@@ -54,7 +54,6 @@
     "lodash": "3.10.1",
     "mocha": "2.3.2",
     "pipeline-handyman": "0.3.0",
-    "sinon": "1.17.3",
-    "yargs": "4.3.1"
+    "sinon": "1.17.3"
   }
 }

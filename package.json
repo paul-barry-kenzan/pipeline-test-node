@@ -40,6 +40,7 @@
   "analyze": true,
   "license": "Apache 2",
   "dependencies": {
+    "chai": "3.2.0",
     "gulp": "3.9.0",
     "gulp-eslint": "1.0.0",
     "gulp-if": "1.2.5",
@@ -51,9 +52,9 @@
     "gulp-util": "3.0.6",
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
+    "mocha": "2.3.2",
     "pipeline-handyman": "0.3.0",
     "sinon": "1.17.3",
-    "chai": "3.2.0",
-    "mocha": "2.3.2"
+    "yargs": "4.3.1"
   }
 }

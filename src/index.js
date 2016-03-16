@@ -25,7 +25,7 @@ module.exports = {
             }
           }
         }else{
-          esLintConfig = resolveConfigFile(options);
+          handyman.mergeConf(esLintConfig, resolveConfigFile(options));
         }
 
       }else{

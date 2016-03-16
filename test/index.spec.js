@@ -3,6 +3,7 @@ var should = require('chai').should();
 var sinon = require('sinon');
 var handyman = require('pipeline-handyman');
 var validatePipeline =  require('../src/index.js');
+var gulp = require('gulp');
 
 describe('pipeline-validateJS', function(){
   it('should return a object', function () {
@@ -43,6 +44,11 @@ describe('pipeline-validateJS', function(){
         (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** Options not valid **');
       });
 
+      it("should test validateJS() with a string as an  options", function() {
+        validatePipeline.validateJS('.customFile');
+        (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
+      });
+
       it("should test validateJS() with ecmaVersion options", function() {
         validatePipeline.validateJS({ecmaVersion: 5});
         (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
@@ -53,5 +59,27 @@ describe('pipeline-validateJS', function(){
         (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** ecmaVersion 7 is not supported! **');
       });
     })
+
+    describe('validateJS config settings', function(){
+      beforeEach(function(){
+        var config = {
+          files: [
+            '*.js',
+            './src/*.js',
+            './src/**/*.js'
+          ]
+        };
+      });
+
+      gulp.task('test1', function() {
+        return gulp
+          .src(config.files)
+          .pipe(function(){
+            console.log('pipe entered')
+          })
+          .pipe(validatePipeline.validateJS('.jscsrc'));
+      });
+      gulp.watch('test1');
+    });
   });
 });

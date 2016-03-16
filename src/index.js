@@ -1,6 +1,5 @@
 'use strict';
 
-var args = require('yargs').argv;
 var plugins = require('gulp-load-plugins')({lazy: true});
 var fs = require('fs');
 var handyman = require('pipeline-handyman');
@@ -8,30 +7,29 @@ var path = require('path');
 var lazypipe = require('lazypipe');
 
 var pipelineConfig = {
-  disableJSCS: false,
   parseOptions: {
     ecmaVersion: 5
-  },
-  reporter: {
-    verbose: true
   }
 };
-var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
   validateJS: function (options) {
     if (options) {
-      var keyArray = Object.keys(options);
-
-      if (typeof options !== 'object') {
-        handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
-      }
-
-      for (var key in keyArray) {
-        if (keyArray[key] === 'ecmaVersion') {
-          pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion
+      if((typeof options === 'object' && !Array.isArray(options)) || typeof options === 'string'){
+        if(typeof options === 'object'){
+          var keyArray = Object.keys(options);
+          for (var key in keyArray) {
+            if (keyArray[key] === 'ecmaVersion') {
+              pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion
+            }
+          }
+        }else{
+          esLintConfig = resolveConfigFile(options);
         }
+
+      }else{
+        handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
       }
     }
 
@@ -47,13 +45,7 @@ module.exports = {
 
     return validateES();
   }
-}
-
-function jsValidationCombiner() {
-  return plugins.piece(
-    plugins.if(!pipelineConfig.disableJSCS, plugins.jscs(jscsConfig))
-  );
-}
+};
 
 function resolveConfigFile(fileName) {
 
@@ -85,13 +77,6 @@ function existsSync(filename) {
 
 function validateES() {
   var stream = lazypipe()
-    .pipe(function () {
-      return plugins.if(args.verbose, plugins.print());
-    })
-    .pipe(jsValidationCombiner)
-    .pipe(function () {
-      return plugins.if(!pipelineConfig.disableJSCS, plugins.jscsStylish.combineWithHintResults());
-    })
     .pipe(plugins.eslint, esLintConfig)
     .pipe(plugins.eslint.format)
     .pipe(plugins.eslint.failOnError);

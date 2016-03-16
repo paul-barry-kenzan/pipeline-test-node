@@ -13,5 +13,5 @@ var config = {
 gulp.task('build', function() {
   return gulp
     .src(config.files)
-    .pipe(validatePipeline.validateJS());
+    .pipe(validatePipeline.validateJS('.jscsrc'));
 });

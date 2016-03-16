@@ -1,31 +1,57 @@
 'use strict';
+var should = require('chai').should();
+var sinon = require('sinon');
+var handyman = require('pipeline-handyman');
+var validatePipeline =  require('../src/index.js');
 
-// TODO Validate stream input and stream output.
+describe('pipeline-validateJS', function(){
+  it('should return a object', function () {
+    (typeof validatePipeline).should.equal('object');
+    console.log(validatePipeline)
+  });
 
-// var validatePipeline = require('../src/index.js')();
-// var should = require('chai').should();
-// var gulp = require('gulp');
+  it('should contain a validateJS method', function(){
+    (validatePipeline.validateJS).should.exist;
+    (typeof validatePipeline.validateJS).should.equal('function');
+  });
 
-describe('pipeline-validate-js', function() {
-//   it('should emit error on streamed file', function (done) {
-//     gulp
-//       .src('../src/resources.js')
-//       .pipe(validatePipeline.validateJS())
-//       .on('data', function (err) {
-//         err.message.should.eql('Streaming not supported');
-//         done();
-//       });
-//     done();
-//   });
+  describe('validateJS method', function (){
 
-  // it('should emit error on streamed file', function (done) {
-  //   var stream = validatePipeline.validateJS();
-  //   stream.on('data', function() {
-  //     done();
-  //   });
-  //   stream.on('end', function() {
-  //       done();
-  //   });
-  //   stream.end(done);
-  // });
+    it('should return an object', function(){
+      var stream = validatePipeline.validateJS();
+      (typeof stream).should.equal('object');
+    });
+
+    describe('validateJS log outputs', function(){
+      var sandbox, spy, stream;
+      beforeEach(function() {
+        sandbox = sinon.sandbox.create();
+        spy = sandbox.spy(handyman, 'log');
+      });
+
+      afterEach(function(){
+        sandbox.restore();
+      });
+
+      it("should test validateJS() with no options", function() {
+        validatePipeline.validateJS();
+        (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
+      });
+
+      it("should test validateJS() with invalid options", function() {
+        validatePipeline.validateJS(234);
+        (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** Options not valid **');
+      });
+
+      it("should test validateJS() with ecmaVersion options", function() {
+        validatePipeline.validateJS({ecmaVersion: 5});
+        (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
+      });
+
+      it("should test validateJS() with not supported ecmaVersion options", function() {
+        validatePipeline.validateJS({ecmaVersion: 7});
+        (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** ecmaVersion 7 is not supported! **');
+      });
+    })
+  });
 });

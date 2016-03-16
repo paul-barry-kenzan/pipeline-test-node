@@ -7,18 +7,53 @@ var handyman = require('pipeline-handyman');
 var path = require('path');
 var lazypipe = require('lazypipe');
 
-var config = {
+var pipelineConfig = {
   disableJSCS: false,
-  linter: 'JSHint',
+  parseOptions: {
+    ecmaVersion: 5
+  },
   reporter: {
     verbose: true
   }
 };
-var jsHintConfig = resolveConfigFile('.jshintrc');
 var jscsConfig = resolveConfigFile('.jscsrc');
 var esLintConfig = resolveConfigFile('.eslintrc');
 
-module.exports = validatePipeline;
+module.exports = {
+  validateJS : function (options) {
+    if (options) {
+      var keyArray = Object.keys(options);
+
+      if (typeof options !== 'object') {
+        handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
+      }
+
+      for (var key in keyArray) {
+        if (keyArray[key] === 'ecmaVersion') {
+          pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion
+        }
+      }
+    }
+
+    switch (true) {
+
+      case pipelineConfig.parseOptions.ecmaVersion >= 3 && pipelineConfig.parseOptions.ecmaVersion <= 5:
+          handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
+          break;
+      default:
+          handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **')
+
+    }
+
+    return validateES();
+  }
+}
+
+function jsValidationCombiner() {
+  return plugins.piece(
+    plugins.if(!pipelineConfig.disableJSCS, plugins.jscs(jscsConfig))
+  );
+}
 
 function resolveConfigFile(fileName) {
 
@@ -48,55 +83,19 @@ function existsSync(filename) {
   }
 }
 
-function validatePipeline(options) {
-
-  if (options) {
-    config = handyman.mergeConf(config, options);
-  }
-
-  var pipeline = {
-    validateJS: null
-  };
-
-  switch (config.linter) {
-    case 'ESLint':
-      pipeline.validateJS = validateES();
-      break;
-    default:
-      pipeline.validateJS = validateJSHint();
-  }
-
-  return pipeline;
-}
-
-function validateJSHint() {
-  handyman.log('Validating js with JSHInt and JSCS');
-  return lazypipe()
+function validateES() {
+  var stream = lazypipe()
     .pipe(function() {
       return plugins.if(args.verbose, plugins.print());
     })
     .pipe(jsValidationCombiner)
     .pipe(function() {
-      return plugins.if(!config.disableJSCS, plugins.jscsStylish.combineWithHintResults());
+      return plugins.if(!pipelineConfig.disableJSCS, plugins.jscsStylish.combineWithHintResults());
     })
-    .pipe(plugins.jshint.reporter, 'jshint-stylish')
-    .pipe(plugins.jshint.reporter, 'jshint-stylish', config.reporter)
-    .pipe(plugins.jshint.reporter, 'fail');
-}
-
-function jsValidationCombiner() {
-
-  return plugins.piece(
-    plugins.jshint(jsHintConfig),
-    plugins.if(!config.disableJSCS, plugins.jscs(jscsConfig))
-  );
-}
-
-function validateES() {
-  handyman.log('Validating js with ESlint');
-  return lazypipe()
     .pipe(plugins.eslint, esLintConfig)
     .pipe(plugins.eslint.format)
     .pipe(plugins.eslint.failOnError);
 
+  return stream();
 }
+

@@ -8,7 +8,7 @@ var lazypipe = require('lazypipe');
 
 var pipelineConfig = {
   parseOptions: {
-    ecmaVersion:
+    ecmaVersion: 5
   }
 };
 var esLintConfig = resolveConfigFile('.eslintrc');

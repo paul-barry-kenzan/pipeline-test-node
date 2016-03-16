@@ -60,26 +60,26 @@ describe('pipeline-validateJS', function(){
       });
     })
 
-    describe('validateJS config settings', function(){
-      beforeEach(function(){
-        var config = {
-          files: [
-            '*.js',
-            './src/*.js',
-            './src/**/*.js'
-          ]
-        };
-      });
+    //describe('validateJS config settings', function(){
+    //  beforeEach(function(){
+    //    var config = {
+    //      files: [
+    //        '*.js',
+    //        './src/*.js',
+    //        './src/**/*.js'
+    //      ]
+    //    };
+    //  });
 
-      gulp.task('test1', function() {
-        return gulp
-          .src(config.files)
-          .pipe(function(){
-            console.log('pipe entered')
-          })
-          .pipe(validatePipeline.validateJS('.jscsrc'));
-      });
-      gulp.watch('test1');
-    });
+      //gulp.task('test1', function() {
+      //  return gulp
+      //    .src(config.files)
+      //    .pipe(function(){
+      //      console.log('pipe entered')
+      //    })
+      //    .pipe(validatePipeline.validateJS('.jscsrc'));
+      //});
+      //gulp.task("default", ['build'])
+    //});
   });
 });

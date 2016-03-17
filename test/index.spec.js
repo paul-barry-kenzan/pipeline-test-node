@@ -60,27 +60,5 @@ describe('pipeline-validateJS', function(){
         (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** ecmaVersion 7 is not supported! **');
       });
     })
-
-    //describe('validateJS config settings', function(){
-    //  beforeEach(function(){
-    //    var config = {
-    //      files: [
-    //        '*.js',
-    //        './src/*.js',
-    //        './src/**/*.js'
-    //      ]
-    //    };
-    //  });
-
-      //gulp.task('test1', function() {
-      //  return gulp
-      //    .src(config.files)
-      //    .pipe(function(){
-      //      console.log('pipe entered')
-      //    })
-      //    .pipe(validatePipeline.validateJS('.jscsrc'));
-      //});
-      //gulp.task("default", ['build'])
-    //});
   });
 });

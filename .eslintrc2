@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "angular": false
+  },
+  "rules": {
+    "quotes": 2
+  }
+}

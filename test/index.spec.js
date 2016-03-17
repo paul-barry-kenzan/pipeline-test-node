@@ -45,7 +45,7 @@ describe('pipeline-validateJS', function(){
       });
 
       it("should test validateJS() with a string as an  options", function() {
-        validatePipeline.validateJS('.customFile');
+        validatePipeline.validateJS('.eslintrc1');
         (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
       });
 

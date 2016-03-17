@@ -44,9 +44,10 @@ describe('pipeline-validateJS', function(){
         (spy.args[0][0]).should.equal('Validading js with ESlint ecmaScript5, ** Options not valid **');
       });
 
-      it("should test validateJS() with a string as an  options", function() {
-        validatePipeline.validateJS('.eslintrc1');
-        (spy.args[0][0]).should.equal('Validating js version 5 with ESlint');
+      it("should test validateJS() with an invalid file path as an  option", function() {
+        var fn = function(){ validatePipeline.validateJS('.eslintrc1'); };
+
+        (fn).should.throw();
       });
 
       it("should test validateJS() with ecmaVersion options", function() {

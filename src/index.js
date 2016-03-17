@@ -1,40 +1,43 @@
 'use strict';
 
-var plugins = require('gulp-load-plugins')({lazy: true});
-var fs = require('fs');
-var handyman = require('pipeline-handyman');
-var path = require('path');
-var lazypipe = require('lazypipe');
+var plugins = require('gulp-load-plugins')({ lazy : true }),
+    fs = require('fs'),
+    handyman = require('pipeline-handyman'),
+    path = require('path'),
+    lazypipe = require('lazypipe'),
+    esLintConfig = resolveConfigFile('.eslintrc1'),
+    pipelineConfig = {
+      parseOptions : {
+        ecmaVersion : 5
+      }
+    };
 
-var pipelineConfig = {
-  parseOptions: {
-    ecmaVersion: 5
-  }
-};
-var esLintConfig = resolveConfigFile('.eslintrc1');
 
 module.exports = {
-  validateJS: function (options) {
+  validateJS : function (options) {
+    var keyArray, customConfig, dest, origin;
+
     if (options) {
-      if((typeof options === 'object' && !Array.isArray(options)) || typeof options === 'string'){
-        if(typeof options === 'object'){
-          var keyArray = Object.keys(options);
-          for (var key in keyArray) {
-            if (keyArray[key] === 'ecmaVersion') {
-              pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion
-            }else{
+      if (typeof options === 'object' && !Array.isArray(options) || typeof options === 'string') {
+        if (typeof options === 'object') {
+          keyArray = Object.keys(options);
+
+          keyArray.forEach(function(obj, i) {
+            if (keyArray[i] === 'ecmaVersion') {
+              pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion;
+            } else {
               handyman.mergeConf(pipelineConfig, options);
             }
-          }
-          esLintConfig  = handyman.mergeConf(esLintConfig, pipelineConfig);
-        }else{
-          var customConfig = resolveConfigFile( options );
-          var dest = JSON.parse(fs.readFileSync( esLintConfig, 'utf8' ));
-          var origin = JSON.parse(fs.readFileSync( customConfig, 'utf8' ));
+          });
+          esLintConfig = handyman.mergeConf(esLintConfig, pipelineConfig);
+        } else {
+          customConfig = resolveConfigFile(options);
+          dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
+          origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
 
-          esLintConfig  = handyman.mergeConf(dest, origin);
+          esLintConfig = handyman.mergeConf(dest, origin);
         }
-      }else{
+      } else {
         handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
       }
     }
@@ -45,7 +48,7 @@ module.exports = {
         handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
         break;
       default:
-        handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **')
+        handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **');
 
     }
 
@@ -54,29 +57,27 @@ module.exports = {
 };
 
 function resolveConfigFile(fileName) {
-
-  var configFilesPathUser = path.resolve(process.cwd(), fileName);
-  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
+  var configFilesPathUser = path.resolve(process.cwd(), fileName),
+      configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
 
   configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
 
   return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault;
-
 }
 
 function existsSync(filename) {
-  if (typeof(fs.accessSync) === 'function') { // newer node
+  if (typeof fs.accessSync === 'function') {
     try {
       fs.accessSync(filename);
       return true;
     } catch (error) {
-      if (typeof(error) !== 'object' || error.code !== 'ENOENT') {
+      if (typeof error !== 'object' || error.code !== 'ENOENT') {
         handyman.log('Unable to access ' + filename + ':');
         handyman.log(error.stack);
       }
       return false;
     }
-  } else { // older node
+  } else {
     return fs.existsSync(filename);
   }
 }
@@ -89,4 +90,3 @@ function validateES() {
 
   return stream();
 }
-

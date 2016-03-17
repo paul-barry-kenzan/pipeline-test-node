@@ -9,7 +9,7 @@
 
 # Overview
 
-Gulp Pipeline that allows you to validate the js files within your project. It defines an object that contains a 
+Gulp Pipeline that allows you to validate the js files within your project. This pipeline is opinionated to company specs. It defines an object that contains a 
 validateJS() function. The function will use ESLint to complete the task.
 
 
@@ -46,6 +46,12 @@ gulp.task('default', function() {
     .src(files)
     .pipe(validatePipeline.validateJS('./src/.eslitrcCustom'));
 });
+
+gulp.task('default', function() {
+  return gulp
+    .src(files)
+    .pipe(validatePipeline.validateJS({"no-console": 0}));
+});
 ```
 
 ## Options
@@ -53,12 +59,12 @@ gulp.task('default', function() {
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
-    + __config.parseOptions.ecmaVersion:__ Sets the ecmaScript version to be linted, set to '5' by default.
+    + __pipelineConfig.parseOptions.ecmaVersion:__ Sets the ecmaScript version to be linted, set to '5' by default.
 
 
   Default:
   ```javascript
-  config = {
+  pipelineCconfig = {
     parseOptions: {
       ecmaVersion: 5
     },

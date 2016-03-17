@@ -39,9 +39,7 @@
     "shelljs": false,     // shelljs global variables
   },
 
-  "globals": {
-    "angular": true
-  },
+  "globals": {},
 
   "plugins": [
     // e.g. "react" (must run `npm install eslint-plugin-react` first)

@@ -26,16 +26,16 @@ module.exports = {
             if (keyArray[i] === 'ecmaVersion') {
               pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion;
             } else {
-              handyman.mergeConf(pipelineConfig, options);
+              handyman.mergeConfig(pipelineConfig, options);
             }
           });
-          esLintConfig = handyman.mergeConf(esLintConfig, pipelineConfig);
+          esLintConfig = handyman.mergeConfig(esLintConfig, pipelineConfig);
         } else {
           customConfig = resolveConfigFile(options);
           dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
           origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
 
-          esLintConfig = handyman.mergeConf(dest, origin);
+          esLintConfig = handyman.mergeConfig(dest, origin);
         }
       } else {
         handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');

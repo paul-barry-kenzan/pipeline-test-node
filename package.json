@@ -53,7 +53,7 @@
     "lazypipe": "1.0.1",
     "lodash": "3.10.1",
     "mocha": "2.3.2",
-    "pipeline-handyman": "0.3.0",
+    "pipeline-handyman": "1.0.0",
     "sinon": "1.17.3"
   }
 }

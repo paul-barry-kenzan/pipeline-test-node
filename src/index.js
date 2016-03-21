@@ -1,55 +1,33 @@
 'use strict';
 
-var plugins = require('gulp-load-plugins')({ lazy : true }),
+var plugins = require('gulp-load-plugins')({ lazy: true }),
     fs = require('fs'),
     handyman = require('pipeline-handyman'),
     path = require('path'),
     lazypipe = require('lazypipe'),
-    esLintConfig = resolveConfigFile('.eslintrc1'),
-    pipelineConfig = {
-      parseOptions : {
-        ecmaVersion : 5
-      }
-    };
-
+    esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
-  validateJS : function (options) {
-    var keyArray, customConfig, dest, origin;
+  validateJS: function (options) {
+    var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8')),
+        customConfig, origin, rules;
 
     if (options) {
       if (typeof options === 'object' && !Array.isArray(options) || typeof options === 'string') {
         if (typeof options === 'object') {
-          keyArray = Object.keys(options);
+          rules = { rules: options };
 
-          keyArray.forEach(function(obj, i) {
-            if (keyArray[i] === 'ecmaVersion') {
-              pipelineConfig.parseOptions.ecmaVersion = options.ecmaVersion;
-            } else {
-              handyman.mergeConfig(pipelineConfig, options);
-            }
-          });
-          esLintConfig = handyman.mergeConfig(esLintConfig, pipelineConfig);
+          esLintConfig = handyman.mergeConfig(dest, rules);
         } else {
           customConfig = resolveConfigFile(options);
-          dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
           origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
 
           esLintConfig = handyman.mergeConfig(dest, origin);
         }
+        handyman.log('Validading js with ESlint ecmaScript5');
       } else {
         handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
       }
-    }
-
-    switch (true) {
-
-      case pipelineConfig.parseOptions.ecmaVersion >= 3 && pipelineConfig.parseOptions.ecmaVersion <= 5:
-        handyman.log('Validating js version ' + pipelineConfig.parseOptions.ecmaVersion + ' with ESlint');
-        break;
-      default:
-        handyman.log('Validading js with ESlint ecmaScript5, ** ecmaVersion ' + pipelineConfig.parseOptions.ecmaVersion + ' is not supported! **');
-
     }
 
     return validateES();

@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
     validatePipeline = require('./src/index.js'),
     config = {
-      files : [
+      files: [
         '*.js',
         './src/*.js',
         './src/**/*.js'
@@ -13,5 +13,5 @@ var gulp = require('gulp'),
 gulp.task('build', function() {
   return gulp
     .src(config.files)
-    .pipe(validatePipeline.validateJS('.eslintrc2'));
+    .pipe(validatePipeline.validateJS({ "space-in-parens": 0 }));
 });

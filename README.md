@@ -9,13 +9,14 @@
 
 # Overview
 
-Gulp Pipeline that allows you to validate the js files within your project. This pipeline is opinionated to company specs. It defines an object that contains a 
+Gulp Pipeline that allows you to validate the js files within your project. The company favors the style used by Airbnb, as well as adds its own style rules. This pipeline is opinionated to company specs. It defines an object that contains a 
 validateJS() function. The function will use ESLint to complete the task.
 
 
 This pipeline also offers the possibility of using personalized lint rules in other modules. If you'd like to use other 
 rules within your project you can define a `.eslintrc` file. These files should be in the 
-root folder of the project. You can also pass in a file path as a parameter 'src/.eslitrcCustom'. This pipeline will prioritize your rules over the default configurations.
+root folder of the project. You can also pass in a file path as a parameter 'src/.eslitrcCustom', or pass in an object with rules {'no-console: 0'}. 
+This pipeline will prioritize your rules over the default configurations.
 
 **NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.**
 
@@ -35,11 +36,6 @@ gulp.task('default', function() {
     .pipe(validatePipeline.validateJS());
 });
 
-gulp.task('default', function() {
-  return gulp
-    .src(files)
-    .pipe(validatePipeline.validateJS({ecmaversion: 4}));
-});
 
 gulp.task('default', function() {
   return gulp
@@ -51,6 +47,12 @@ gulp.task('default', function() {
   return gulp
     .src(files)
     .pipe(validatePipeline.validateJS({"no-console": 0}));
+});
+
+gulp.task('default', function() {
+  return gulp
+    .src(files)
+    .pipe(validatePipeline.validateJS(config.rules);
 });
 ```
 
@@ -64,7 +66,7 @@ Pipeline options:
 
   Default:
   ```javascript
-  pipelineCconfig = {
+  pipelineConfig = {
     parseOptions: {
       ecmaVersion: 5
     },

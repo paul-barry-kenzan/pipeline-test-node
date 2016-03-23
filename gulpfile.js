@@ -7,11 +7,17 @@ var gulp = require('gulp'),
         '*.js',
         './src/*.js',
         './src/**/*.js'
-      ]
+      ],
+      rules: {
+        'consistent-this': 0,
+        'new-cap': 0,
+        'no-cond-assign': 0,
+        'newline-per-chained-call': 0
+      }
     };
 
 gulp.task('build', function() {
   return gulp
     .src(config.files)
-    .pipe(validatePipeline.validateJS({ "space-in-parens": 0 }));
+    .pipe(validatePipeline.validateJS(config.rules));
 });

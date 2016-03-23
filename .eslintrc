@@ -1,7 +1,7 @@
 {
   "env": {
     "browser": true,
-    "node": true,
+    "node": true
   },
 
   "globals": {},
@@ -95,7 +95,7 @@
     "camelcase": 1,
     "comma-spacing": 1,
     "comma-style": [1, "last"],
-    "consistent-this": [ 1, "self",  "vm" ],
+    "consistent-this": [ 1, "self",  "vm", "that" ],
     "eol-last": 1,
     "indent": [1, 2, {
       "VariableDeclarator": 2,
@@ -145,9 +145,9 @@
       "arraysInObjects": false
     }],
 
+    "no-bitwise": [1, { "allow": ["~"] }],
     "max-depth": [1, 4],
-    "max-len": [1, {"code": 100, "tabWidth": 1, "ignoreUrls": true}],
-    "no-bitwise": 1,
+    "max-len": [1, {"code": 200, "tabWidth": 1, "ignoreUrls": true}],
     "no-plusplus": 1
   }
 }

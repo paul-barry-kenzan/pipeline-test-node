@@ -24,7 +24,8 @@ describe('pipeline-validateJS', function() {
     });
 
     describe('validateJS log outputs', function() {
-      var sandbox, spy;
+      var sandbox = {};
+      var spy = {};
 
       beforeEach(function() {
         sandbox = sinon.sandbox.create();

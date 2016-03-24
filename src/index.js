@@ -10,8 +10,10 @@ var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
   validateJS: function (options) {
-    var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8')),
-        customConfig, origin, rules;
+    var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
+    var customConfig = {};
+    var origin = {};
+    var rules = {};
 
     if (options) {
       if (typeof options === 'object' && !Array.isArray(options) || typeof options === 'string') {
@@ -35,8 +37,8 @@ module.exports = {
 };
 
 function resolveConfigFile(fileName) {
-  var configFilesPathUser = path.resolve(process.cwd(), fileName),
-      configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
+  var configFilesPathUser = path.resolve(process.cwd(), fileName);
+  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
 
   configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
 

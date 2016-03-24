@@ -30,14 +30,14 @@ Number(function ($) {
   // ============================================================
 
   function transitionEnd() {
-    var name,
-        el = document.createElement('bootstrap'),
-        transEndEventNames = {
-          WebkitTransition: 'webkitTransitionEnd',
-          MozTransition: 'transitionend',
-          OTransition: 'oTransitionEnd otransitionend',
-          transition: 'transitionend'
-        };
+    var name;
+    var el = document.createElement('bootstrap');
+    var transEndEventNames = {
+      WebkitTransition: 'webkitTransitionEnd',
+      MozTransition: 'transitionend',
+      OTransition: 'oTransitionEnd otransitionend',
+      transition: 'transitionend'
+    };
 
     for (name in transEndEventNames) {
       if (el.style[name] !== undefined) {
@@ -50,9 +50,9 @@ Number(function ($) {
 
   // http://blog.alexmaccaw.com/css-transitions
   $.fn.emulateTransitionEnd = function (duration) {
-    var called = false,
-        $el = this,
-        callback;
+    var called = false;
+    var $el = this;
+    var callback;
 
     $(this).one('bsTransitionEnd', function () { called = true;});
     allback = function () { if (!called) {$($el).trigger($.support.transition.end); }};
@@ -87,20 +87,20 @@ Number(function ($) {
   // ALERT CLASS DEFINITION
   // ======================
 
-  var old,
-      dismiss = '[data-dismiss="alert"]',
-      Alert = function (el) {
-        $(el).on('click', dismiss, this.close);
-      };
+  var old = {};
+  var dismiss = '[data-dismiss="alert"]';
+  var Alert = function (el) {
+    $(el).on('click', dismiss, this.close);
+  };
 
   Alert.VERSION = '3.3.6';
 
   Alert.TRANSITION_DURATION = 150;
 
   Alert.prototype.close = function (e) {
-    var $this = $(this),
-        selector = $this.attr('data-target'),
-        $parent;
+    var $this = $(this);
+    var selector = $this.attr('data-target');
+    var $parent = {};
 
     if (!selector) {
       selector = $this.attr('href');
@@ -138,8 +138,8 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.alert');
+      var $this = $(this);
+      var data = $this.data('bs.alert');
 
       if (!data) {$this.data('bs.alert', data = new Alert(this));}
       if (typeof option === 'string') {data[option].call($this);}
@@ -179,12 +179,12 @@ Number(function ($) {
   // BUTTON PUBLIC CLASS DEFINITION
   // ==============================
 
-  var old,
-      Button = function (element, options) {
-        this.$element = $(element);
-        this.options = $.extend({}, Button.DEFAULTS, options);
-        this.isLoading = false;
-      };
+  var old = {};
+  var Button = function (element, options) {
+    this.$element = $(element);
+    this.options = $.extend({}, Button.DEFAULTS, options);
+    this.isLoading = false;
+  };
 
   Button.VERSION = '3.3.6';
 
@@ -193,10 +193,10 @@ Number(function ($) {
   };
 
   Button.prototype.setState = function (state) {
-    var d = 'disabled',
-        $el = this.$element,
-        val = $el.is('input') ? 'val' : 'html',
-        data = $el.data();
+    var d = 'disabled';
+    var $el = this.$element;
+    var val = $el.is('input') ? 'val' : 'html';
+    var data = $el.data();
 
     state = state + 'Text';
 
@@ -217,9 +217,9 @@ Number(function ($) {
   };
 
   Button.prototype.toggle = function () {
-    var changed = true,
-        $parent = this.$element.closest('[data-toggle="buttons"]'),
-        $input;
+    var changed = true;
+    var $parent = this.$element.closest('[data-toggle="buttons"]');
+    var $input = {};
 
     if ($parent.length) {
       $input = this.$element.find('input');
@@ -245,9 +245,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.button'),
-          options = typeof option === 'object' && option;
+      var $this = $(this);
+      var data = $this.data('bs.button');
+      var options = typeof option === 'object' && option;
 
       if (!data) {$this.data('bs.button', data = new Button(this, options));}
 
@@ -298,24 +298,24 @@ Number(function ($) {
   // CAROUSEL CLASS DEFINITION
   // =========================
 
-  var old,
-      clickHandler,
-      Carousel = function (element, options) {
-        this.$element = $(element);
-        this.$indicators = this.$element.find('.carousel-indicators');
-        this.options = options;
-        this.paused = null;
-        this.sliding = null;
-        this.interval = null;
-        this.$active = null;
-        this.$items = null;
+  var old = {};
+  var clickHandler = {};
+  var Carousel = function (element, options) {
+    this.$element = $(element);
+    this.$indicators = this.$element.find('.carousel-indicators');
+    this.options = options;
+    this.paused = null;
+    this.sliding = null;
+    this.interval = null;
+    this.$active = null;
+    this.$items = null;
 
-        this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this));
+    this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this));
 
-        this.options.pause === 'hover' && !('ontouchstart' in document.documentElement) && this.$element
-          .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
-          .on('mouseleave.bs.carousel', $.proxy(this.cycle, this));
-      };
+    this.options.pause === 'hover' && !('ontouchstart' in document.documentElement) && this.$element
+      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
+      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this));
+  };
 
   Carousel.VERSION = '3.3.6';
 
@@ -357,9 +357,10 @@ Number(function ($) {
   };
 
   Carousel.prototype.getItemForDirection = function (direction, active) {
-    var delta, itemIndex,
-        activeIndex = this.getItemIndex(active),
-        willWrap = direction === 'prev' && activeIndex === 0
+    var delta = {};
+    var itemIndex = {};
+    var activeIndex = this.getItemIndex(active);
+    var willWrap = direction === 'prev' && activeIndex === 0
           || direction === 'next' && activeIndex === this.$items.length - 1;
 
     if (willWrap && !this.options.wrap) {return active;}
@@ -369,8 +370,8 @@ Number(function ($) {
   };
 
   Carousel.prototype.to = function (pos) {
-    var that = this,
-        activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'));
+    var that = this;
+    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'));
 
     if (pos > this.$items.length - 1 || pos < 0) {return;}
 
@@ -404,15 +405,15 @@ Number(function ($) {
   };
 
   Carousel.prototype.slide = function (type, next) {
-    var $active = this.$element.find('.item.active'),
-        $next = next || this.getItemForDirection(type, $active),
-        isCycling = this.interval,
-        direction = type === 'next' ? 'left' : 'right',
-        that = this,
-        relatedTarget,
-        slideEvent,
-        $nextIndicator,
-        slidEvent;
+    var $active = this.$element.find('.item.active');
+    var $next = next || this.getItemForDirection(type, $active);
+    var isCycling = this.interval;
+    var direction = type === 'next' ? 'left' : 'right';
+    var that = this;
+    var relatedTarget = {};
+    var slideEvent = {};
+    var $nextIndicator = {};
+    var slidEvent = {};
 
     if ($next.hasClass('active')) {return this.sliding = false;}
 
@@ -467,10 +468,10 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.carousel'),
-          options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option === 'object' && option),
-          action = typeof option === 'string' ? option : options.slide;
+      var $this = $(this);
+      var data = $this.data('bs.carousel');
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option === 'object' && option);
+      var action = typeof option === 'string' ? option : options.slide;
 
       if (!data) {$this.data('bs.carousel', data = new Carousel(this, options));}
       if (typeof option === 'number') {data.to(option);}
@@ -496,9 +497,11 @@ Number(function ($) {
   // =================
 
   clickHandler = function (e) {
-    var href, options, slideIndex,
-        $this = $(this),
-        $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')); // strip for ie7
+    var href = {};
+    var options = {};
+    var slideIndex = {};
+    var $this = $(this);
+    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')); // strip for ie7
 
     if (!$target.hasClass('carousel')) {return;}
     options = $.extend({}, $target.data(), $this.data());
@@ -539,22 +542,22 @@ Number(function ($) {
   // COLLAPSE PUBLIC CLASS DEFINITION
   // ================================
 
-  var old,
-      Collapse = function (element, options) {
-        this.$element = $(element);
-        this.options = $.extend({}, Collapse.DEFAULTS, options);
-        this.$trigger = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
-          '[data-toggle="collapse"][data-target="#' + element.id + '"]');
-        this.transitioning = null;
+  var old = {};
+  var Collapse = function (element, options) {
+    this.$element = $(element);
+    this.options = $.extend({}, Collapse.DEFAULTS, options);
+    this.$trigger = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+      '[data-toggle="collapse"][data-target="#' + element.id + '"]');
+    this.transitioning = null;
 
-        if (this.options.parent) {
-          this.$parent = this.getParent();
-        } else {
-          this.addAriaAndCollapsedClass(this.$element, this.$trigger);
-        }
+    if (this.options.parent) {
+      this.$parent = this.getParent();
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger);
+    }
 
-        if (this.options.toggle) {this.toggle();}
-      };
+    if (this.options.toggle) {this.toggle();}
+  };
 
   Collapse.VERSION = '3.3.6';
 
@@ -571,7 +574,12 @@ Number(function ($) {
   };
 
   Collapse.prototype.show = function () {
-    var activesData, actives, startEvent, dimension, complete, scrollSize;
+    var activesData = {};
+    var actives = {};
+    var startEvent = {};
+    var dimension = {};
+    var complete = function() {};
+    var scrollSize = 0;
 
     if (this.transitioning || this.$element.hasClass('in')) {return;}
 
@@ -623,7 +631,9 @@ Number(function ($) {
   };
 
   Collapse.prototype.hide = function () {
-    var startEvent, dimension, complete;
+    var startEvent = {};
+    var dimension = {};
+    var complete = function() {};
 
     if (this.transitioning || !this.$element.hasClass('in')) {return;}
 
@@ -688,9 +698,10 @@ Number(function ($) {
 
   function getTargetFromTrigger($trigger) {
     // strip for ie7
-    var href,
-        target = $trigger.attr('data-target')
-          || (href = $trigger.attr('href')) && href.replace((/.*(?=#[^\s]+$)/), ''); // eslint-disable-line no-extra-parens
+    var href = $trigger.attr('href');
+    var target = $trigger.attr('data-target');
+
+    href.replace((/.*(?=#[^\s]+$)/), '');
 
     return $(target);
   }
@@ -701,9 +712,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.collapse'),
-          options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option === 'object' && option);
+      var $this = $(this);
+      var data = $this.data('bs.collapse');
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option === 'object' && option);
 
       if (!data && options.toggle && (/show|hide/).test(option)) {options.toggle = false;}
       if (!data) {$this.data('bs.collapse', data = new Collapse(this, options));}
@@ -728,8 +739,10 @@ Number(function ($) {
   // =================
 
   $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-    var $target, data, option,
-        $this = $(this);
+    var $target = {};
+    var data = {};
+    var option = {};
+    var $this = $(this);
 
     if (!$this.attr('data-target')) {e.preventDefault();}
 
@@ -753,18 +766,18 @@ Number(function ($) {
   // DROPDOWN CLASS DEFINITION
   // =========================
 
-  var backdrop = '.dropdown-backdrop',
-      toggle = '[data-toggle="dropdown"]',
-      old,
-      Dropdown = function (element) {
-        $(element).on('click.bs.dropdown', this.toggle);
-      };
+  var backdrop = '.dropdown-backdrop';
+  var toggle = '[data-toggle="dropdown"]';
+  var old = {};
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle);
+  };
 
   Dropdown.VERSION = '3.3.6';
 
   function getParent($this) {
-    var $parent,
-        selector = $this.attr('data-target');
+    var $parent = {};
+    var selector = $this.attr('data-target');
 
     if (!selector) {
       selector = $this.attr('href');
@@ -781,9 +794,9 @@ Number(function ($) {
 
     $(backdrop).remove();
     $(toggle).each(function () {
-      var $this = $(this),
-          $parent = getParent($this),
-          relatedTarget = { relatedTarget: this };
+      var $this = $(this);
+      var $parent = getParent($this);
+      var relatedTarget = { relatedTarget: this };
 
       if (!$parent.hasClass('open')) {return;}
 
@@ -799,9 +812,10 @@ Number(function ($) {
   }
 
   Dropdown.prototype.toggle = function (e) {
-    var $parent, isActive,
-        $this = $(this),
-        relatedTarget;
+    var $parent = {};
+    var isActive = false;
+    var $this = $(this);
+    var relatedTarget;
 
     if ($this.is('.disabled, :disabled')) {return;}
 
@@ -839,7 +853,12 @@ Number(function ($) {
   };
 
   Dropdown.prototype.keydown = function (e) {
-    var $this, $parent, isActive, desc, $items, index;
+    var $this = {};
+    var $parent = {};
+    var isActive = false;
+    var desc = '';
+    var $items = [];
+    var index = 0;
 
     if ((!/(38|40|27|32)/).test(e.which) || (/input|textarea/i).test(e.target.tagName)) {return;}
 
@@ -878,8 +897,8 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.dropdown');
+      var $this = $(this);
+      var data = $this.data('bs.dropdown');
 
       if (!data) {$this.data('bs.dropdown', data = new Dropdown(this));}
       if (typeof option === 'string') {data[option].call($this);}
@@ -922,26 +941,26 @@ Number(function ($) {
   // MODAL CLASS DEFINITION
   // ======================
 
-  var old,
-      Modal = function (element, options) {
-        this.options = options;
-        this.$body = $(document.body);
-        this.$element = $(element);
-        this.$dialog = this.$element.find('.modal-dialog');
-        this.$backdrop = null;
-        this.isShown = null;
-        this.originalBodyPad = null;
-        this.scrollbarWidth = 0;
-        this.ignoreBackdropClick = false;
+  var old = {};
+  var Modal = function (element, options) {
+    this.options = options;
+    this.$body = $(document.body);
+    this.$element = $(element);
+    this.$dialog = this.$element.find('.modal-dialog');
+    this.$backdrop = null;
+    this.isShown = null;
+    this.originalBodyPad = null;
+    this.scrollbarWidth = 0;
+    this.ignoreBackdropClick = false;
 
-        if (this.options.remote) {
-          this.$element
-            .find('.modal-content')
-            .load(this.options.remote, $.proxy(function () {
-              this.$element.trigger('loaded.bs.modal');
-            }, this));
-        }
-      };
+    if (this.options.remote) {
+      this.$element
+        .find('.modal-content')
+        .load(this.options.remote, $.proxy(function () {
+          this.$element.trigger('loaded.bs.modal');
+        }, this));
+    }
+  };
 
   Modal.VERSION = '3.3.6';
 
@@ -959,8 +978,8 @@ Number(function ($) {
   };
 
   Modal.prototype.show = function (_relatedTarget) {
-    var that = this,
-        e = $.Event('show.bs.modal', { relatedTarget: _relatedTarget });
+    var that = this;
+    var e = $.Event('show.bs.modal', { relatedTarget: _relatedTarget });
 
     this.$element.trigger(e);
 
@@ -984,8 +1003,8 @@ Number(function ($) {
     });
 
     this.backdrop(function () {
-      var e,
-          transition = $.support.transition && that.$element.hasClass('fade');
+      var e = {};
+      var transition = $.support.transition && that.$element.hasClass('fade');
 
       if (!that.$element.parent().length) {
         that.$element.appendTo(that.$body); // don't move modals dom position
@@ -1095,9 +1114,10 @@ Number(function ($) {
   };
 
   Modal.prototype.backdrop = function (callback) {
-    var doAnimate, callbackRemove,
-        that = this,
-        animate = this.$element.hasClass('fade') ? 'fade' : '';
+    var doAnimate = false;
+    var callbackRemove = false;
+    var that = this;
+    var animate = this.$element.hasClass('fade') ? 'fade' : '';
 
     if (this.isShown && this.options.backdrop) {
       doAnimate = $.support.transition && animate;
@@ -1166,8 +1186,8 @@ Number(function ($) {
   };
 
   Modal.prototype.checkScrollbar = function () {
-    var documentElementRect,
-        fullWindowWidth = window.innerWidth;
+    var documentElementRect = {};
+    var fullWindowWidth = window.innerWidth;
 
     if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
       documentElementRect = document.documentElement.getBoundingClientRect();
@@ -1189,8 +1209,8 @@ Number(function ($) {
   };
 
   Modal.prototype.measureScrollbar = function () { // thx walsh
-    var scrollbarWidth,
-        scrollDiv = document.createElement('div');
+    var scrollbarWidth = 0;
+    var scrollDiv = document.createElement('div');
 
     scrollDiv.className = 'modal-scrollbar-measure';
     this.$body.append(scrollDiv);
@@ -1204,9 +1224,9 @@ Number(function ($) {
 
   function Plugin(option, _relatedTarget) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.modal'),
-          options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option === 'object' && option);
+      var $this = $(this);
+      var data = $this.data('bs.modal');
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option === 'object' && option);
 
       if (!data) {$this.data('bs.modal', data = new Modal(this, options));}
       if (typeof option === 'string') {data[option](_relatedTarget);}
@@ -1231,10 +1251,10 @@ Number(function ($) {
   // ==============
 
   $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
-    var $this = $(this),
-        href = $this.attr('href'),
-        $target = $($this.attr('data-target') || href && href.replace(/.*(?=#[^\s]+$)/, '')), // strip for ie7
-        option = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: (!/#/).test(href) && href }, $target.data(), $this.data());
+    var $this = $(this);
+    var href = $this.attr('href');
+    var $target = $($this.attr('data-target') || href && href.replace(/.*(?=#[^\s]+$)/, '')); // strip for ie7
+    var option = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: (!/#/).test(href) && href }, $target.data(), $this.data());
 
     if ($this.is('a')) {e.preventDefault();}
 
@@ -1261,18 +1281,18 @@ Number(function ($) {
   // TOOLTIP PUBLIC CLASS DEFINITION
   // ===============================
 
-  var old,
-      Tooltip = function (element, options) {
-        this.type = null;
-        this.options = null;
-        this.enabled = null;
-        this.timeout = null;
-        this.hoverState = null;
-        this.$element = null;
-        this.inState = null;
+  var old = {};
+  var Tooltip = function (element, options) {
+    this.type = null;
+    this.options = null;
+    this.enabled = null;
+    this.timeout = null;
+    this.hoverState = null;
+    this.$element = null;
+    this.inState = null;
 
-        this.init('tooltip', element, options);
-      };
+    this.init('tooltip', element, options);
+  };
 
   Tooltip.VERSION = '3.3.6';
 
@@ -1295,7 +1315,11 @@ Number(function ($) {
   };
 
   Tooltip.prototype.init = function (type, element, options) {
-    var triggers, i, trigger, eventIn, eventOut;
+    var triggers = {};
+    var i = 0;
+    var trigger = function() {};
+    var eventIn = {};
+    var eventOut = {};
 
     this.enabled = true;
     this.type = type;
@@ -1347,8 +1371,8 @@ Number(function ($) {
   };
 
   Tooltip.prototype.getDelegateOptions = function () {
-    var options = {},
-        defaults = this.getDefaults();
+    var options = {};
+    var defaults = this.getDefaults();
 
     this._options && $.each(this._options, function (key, value) {
       if (defaults[key] !== value) {options[key] = value;}
@@ -1358,8 +1382,7 @@ Number(function ($) {
   };
 
   Tooltip.prototype.enter = function (obj) {
-    var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget).data('bs.' + this.type);
+    var self = obj instanceof this.constructor ? obj : $(obj.currentTarget).data('bs.' + this.type);
 
     if (!self) {
       self = new this.constructor(obj.currentTarget, this.getDelegateOptions());
@@ -1387,7 +1410,7 @@ Number(function ($) {
   };
 
   Tooltip.prototype.isInStateTrue = function () {
-    var key;
+    var key = '';
 
     for (key in this.inState) {
       if (this.inState[key]) {return true;}
@@ -1397,8 +1420,7 @@ Number(function ($) {
   };
 
   Tooltip.prototype.leave = function (obj) {
-    var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget).data('bs.' + this.type);
+    var self = obj instanceof this.constructor ? obj : $(obj.currentTarget).data('bs.' + this.type);
 
     if (!self) {
       self = new this.constructor(obj.currentTarget, this.getDelegateOptions());
@@ -1423,9 +1445,21 @@ Number(function ($) {
   };
 
   Tooltip.prototype.show = function () {
-    var inDom, that, $tip, tipId, placement, autoToken, autoPlace, pos, viewportDim,
-        actualHeight, actualWidth, calculatedOffset, complete, orgPlacement,
-        e = $.Event('show.bs.' + this.type);
+    var inDom = false;
+    var that = {};
+    var $tip = {};
+    var tipId = {};
+    var placement = {};
+    var autoToken = '';
+    var autoPlace = false;
+    var pos = 0;
+    var viewportDim = 0;
+    var actualHeight = 0;
+    var actualWidth = 0;
+    var calculatedOffset = function() {};
+    var complete = function() {};
+    var orgPlacement = function() {};
+    var e = $.Event('show.bs.' + this.type);
 
     if (this.hasContent() && this.enabled) {
       this.$element.trigger(e);
@@ -1499,14 +1533,19 @@ Number(function ($) {
   };
 
   Tooltip.prototype.applyPlacement = function (offset, placement) {
-    var actualHeight, actualWidth, delta, isVertical, arrowDelta, arrowOffsetPosition,
-        $tip = this.tip(),
-        width = $tip[0].offsetWidth,
-        height = $tip[0].offsetHeight,
+    var actualHeight = 0;
+    var actualWidth = 0;
+    var delta = 0;
+    var isVertical = false;
+    var arrowDelta = 0;
+    var arrowOffsetPosition = 0;
+    var $tip = this.tip();
+    var width = $tip[0].offsetWidth;
+    var height = $tip[0].offsetHeight;
 
     // manually read margins because getBoundingClientRect includes difference
-        marginTop = parseInt($tip.css('margin-top'), 10),
-        marginLeft = parseInt($tip.css('margin-left'), 10);
+    var marginTop = parseInt($tip.css('margin-top'), 10);
+    var marginLeft = parseInt($tip.css('margin-left'), 10);
 
     // we must check for NaN for ie 8/9
     if (isNaN(marginTop)) {marginTop = 0;}
@@ -1559,17 +1598,17 @@ Number(function ($) {
   };
 
   Tooltip.prototype.setContent = function () {
-    var $tip = this.tip(),
-        title = this.getTitle();
+    var $tip = this.tip();
+    var title = this.getTitle();
 
     $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title);
     $tip.removeClass('fade in top bottom left right');
   };
 
   Tooltip.prototype.hide = function (callback) {
-    var that = this,
-        $tip = $(this.$tip),
-        e = $.Event('hide.bs.' + this.type);
+    var that = this;
+    var $tip = $(this.$tip);
+    var e = $.Event('hide.bs.' + this.type);
 
     function complete() {
       if (that.hoverState !== 'in') {$tip.detach();}
@@ -1608,7 +1647,12 @@ Number(function ($) {
   };
 
   Tooltip.prototype.getPosition = function ($element) {
-    var el, isBody, elRect, elOffset, scroll, outerDims;
+    var el = {};
+    var isBody = false;
+    var elRect = {};
+    var elOffset = 0;
+    var scroll = function() {};
+    var outerDims = {};
 
     $element = $element || this.$element;
 
@@ -1635,8 +1679,13 @@ Number(function ($) {
   };
 
   Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
-    var viewportDimensions, viewportPadding, leftEdgeOffset, rightEdgeOffset, topEdgeOffset, bottomEdgeOffset,
-        delta = { top: 0, left: 0 };
+    var viewportDimensions = 0;
+    var viewportPadding = 0;
+    var leftEdgeOffset = 0;
+    var rightEdgeOffset = 0;
+    var topEdgeOffset = 0;
+    var bottomEdgeOffset = 0;
+    var delta = { top: 0, left: 0 };
 
     if (!this.$viewport) {return delta;}
 
@@ -1667,12 +1716,11 @@ Number(function ($) {
   };
 
   Tooltip.prototype.getTitle = function () {
-    var title,
-        $e = this.$element,
-        o = this.options;
+    var title = '';
+    var $e = this.$element;
+    var o = this.options;
 
-    title = $e.attr('data-original-title')
-      || (typeof o.title === 'function' ? o.title.call($e[0]) : o.title);
+    title = $e.attr('data-original-title') || (typeof o.title === 'function' ? o.title.call($e[0]) : o.title);
 
     return title;
   };
@@ -1752,9 +1800,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.tooltip'),
-          options = typeof option === 'object' && option;
+      var $this = $(this);
+      var data = $this.data('bs.tooltip');
+      var options = typeof option === 'object' && option;
 
       if (!data && (/destroy|hide/).test(option)) {return;}
       if (!data) {$this.data('bs.tooltip', data = new Tooltip(this, options));}
@@ -1788,10 +1836,10 @@ Number(function ($) {
   // POPOVER PUBLIC CLASS DEFINITION
   // ===============================
 
-  var old,
-      Popover = function (element, options) {
-        this.init('popover', element, options);
-      };
+  var old = {};
+  var Popover = function (element, options) {
+    this.init('popover', element, options);
+  };
 
   if (!$.fn.tooltip) {throw new Error('Popover requires tooltip.js');}
   Popover.VERSION = '3.3.6';
@@ -1815,11 +1863,11 @@ Number(function ($) {
   };
 
   Popover.prototype.setContent = function () {
-    var ele = {},
-        index = 0,
-        $tip = this.tip(),
-        title = this.getTitle(),
-        content = this.getContent();
+    var ele = {};
+    var index = 0;
+    var $tip = this.tip();
+    var title = this.getTitle();
+    var content = this.getContent();
 
     $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title);
 
@@ -1842,8 +1890,8 @@ Number(function ($) {
   };
 
   Popover.prototype.getContent = function () {
-    var $e = this.$element,
-        o = this.options;
+    var $e = this.$element;
+    var o = this.options;
 
     return $e.attr('data-content')
       || (typeof o.content === 'function' ?
@@ -1860,9 +1908,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.popover'),
-          options = typeof option === 'object' && option;
+      var $this = $(this);
+      var data = $this.data('bs.popover');
+      var options = typeof option === 'object' && option;
 
       if (!data && (/destroy|hide/).test(option)) {return;}
       if (!data) {$this.data('bs.popover', data = new Popover(this, options));}
@@ -1893,7 +1941,7 @@ Number(function ($) {
  * ======================================================================== */
 
 Number(function ($) {
-  var old;
+  var old = {};
   // SCROLLSPY CLASS DEFINITION
   // ==========================
 
@@ -1923,9 +1971,9 @@ Number(function ($) {
   };
 
   ScrollSpy.prototype.refresh = function () {
-    var that = this,
-        offsetMethod = 'offset',
-        offsetBase = 0;
+    var that = this;
+    var offsetMethod = 'offset';
+    var offsetBase = 0;
 
     this.offsets = [];
     this.targets = [];
@@ -1939,9 +1987,9 @@ Number(function ($) {
     this.$body
       .find(this.selector)
       .map(function () {
-        var $el = $(this),
-            href = $el.data('target') || $el.attr('href'),
-            $href = (/^#./).test(href) && $(href);
+        var $el = $(this);
+        var href = $el.data('target') || $el.attr('href');
+        var $href = (/^#./).test(href) && $(href);
 
         return $href
           && $href.length
@@ -1956,13 +2004,13 @@ Number(function ($) {
   };
 
   ScrollSpy.prototype.process = function () {
-    var scrollTop = this.$scrollElement.scrollTop() + this.options.offset,
-        scrollHeight = this.getScrollHeight(),
-        maxScroll = this.options.offset + scrollHeight - this.$scrollElement.height(),
-        offsets = this.offsets,
-        targets = this.targets,
-        activeTarget = this.activeTarget,
-        i;
+    var scrollTop = this.$scrollElement.scrollTop() + this.options.offset;
+    var scrollHeight = this.getScrollHeight();
+    var maxScroll = this.options.offset + scrollHeight - this.$scrollElement.height();
+    var offsets = this.offsets;
+    var targets = this.targets;
+    var activeTarget = this.activeTarget;
+    var i = 0;
 
     if (this.scrollHeight !== scrollHeight) {
       this.refresh();
@@ -1986,7 +2034,8 @@ Number(function ($) {
   };
 
   ScrollSpy.prototype.activate = function (target) {
-    var selector, active;
+    var selector = 0;
+    var active = false;
 
     this.activeTarget = target;
     this.clear();
@@ -2020,9 +2069,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.scrollspy'),
-          options = typeof option === 'object' && option;
+      var $this = $(this);
+      var data = $this.data('bs.scrollspy');
+      var options = typeof option === 'object' && option;
 
       if (!data) {$this.data('bs.scrollspy', data = new ScrollSpy(this, options));}
       if (typeof option === 'string') {data[option]();}
@@ -2068,22 +2117,24 @@ Number(function ($) {
   // TAB CLASS DEFINITION
   // ====================
 
-  var old, clickHandler,
-      Tab = function (element) {
-        // jscs:disable requireDollarBeforejQueryAssignment
-        this.element = $(element);
-        // jscs:enable requireDollarBeforejQueryAssignment
-      };
+  var old = {};
+  var clickHandler = {};
+  var Tab = function (element) {
+    this.element = $(element);
+  };
 
   Tab.VERSION = '3.3.6';
 
   Tab.TRANSITION_DURATION = 150;
 
   Tab.prototype.show = function () {
-    var $this = this.element,
-        $ul = $this.closest('ul:not(.dropdown-menu)'),
-        selector = $this.data('target'),
-        $previous, hideEvent, showEvent, $target;
+    var $this = this.element;
+    var $ul = $this.closest('ul:not(.dropdown-menu)');
+    var selector = $this.data('target');
+    var $previous = {};
+    var hideEvent = {};
+    var showEvent = {};
+    var $target = {};
 
     if (!selector) {
       selector = $this.attr('href');
@@ -2121,8 +2172,8 @@ Number(function ($) {
   };
 
   Tab.prototype.activate = function (element, container, callback) {
-    var $active = container.find('> .active'),
-        transition = callback
+    var $active = container.find('> .active');
+    var transition = callback
           && $.support.transition
           && ($active.length && $active.hasClass('fade') || !!container.find('> .fade').length);
 
@@ -2173,8 +2224,8 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.tab');
+      var $this = $(this);
+      var data = $this.data('bs.tab');
 
       if (!data) {$this.data('bs.tab', data = new Tab(this));}
       if (typeof option === 'string') {data[option]();}
@@ -2220,20 +2271,19 @@ Number(function ($) {
 Number(function ($) {
   // AFFIX CLASS DEFINITION
   // ======================
-
+  var old = {};
   var Affix = function (element, options) {
-        this.options = $.extend({}, Affix.DEFAULTS, options);
-        this.$target = $(this.options.target)
-          .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
-          .on('click.bs.affix.data-api', $.proxy(this.checkPositionWithEventLoop, this));
-        this.$element = $(element);
-        this.affixed = null;
-        this.unpin = null;
-        this.pinnedOffset = null;
+    this.options = $.extend({}, Affix.DEFAULTS, options);
+    this.$target = $(this.options.target)
+      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+      .on('click.bs.affix.data-api', $.proxy(this.checkPositionWithEventLoop, this));
+    this.$element = $(element);
+    this.affixed = null;
+    this.unpin = null;
+    this.pinnedOffset = null;
 
-        this.checkPosition();
-      },
-      old;
+    this.checkPosition();
+  };
 
   Affix.VERSION = '3.3.6';
 
@@ -2245,12 +2295,12 @@ Number(function ($) {
   };
 
   Affix.prototype.getState = function (scrollHeight, height, offsetTop, offsetBottom) {
-    var scrollTop = this.$target.scrollTop(),
-        position = this.$element.offset(),
-        targetHeight = this.$target.height(),
-        initializing,
-        colliderTop,
-        colliderHeight;
+    var scrollTop = this.$target.scrollTop();
+    var position = this.$element.offset();
+    var targetHeight = this.$target.height();
+    var initializing = false;
+    var colliderTop = 0;
+    var colliderHeight = 0;
 
     if (offsetTop != null && this.affixed === 'top') {return scrollTop < offsetTop ? 'top' : false;}
 
@@ -2270,7 +2320,8 @@ Number(function ($) {
   };
 
   Affix.prototype.getPinnedOffset = function () {
-    var scrollTop, position;
+    var scrollTop = false;
+    var position = 0;
 
     if (this.pinnedOffset) {return this.pinnedOffset;}
     this.$element.removeClass(Affix.RESET).addClass('affix');
@@ -2284,7 +2335,14 @@ Number(function ($) {
   };
 
   Affix.prototype.checkPosition = function () {
-    var height, offset, offsetTop, offsetBottom, scrollHeight, affix, affixType, e;
+    var height = 0;
+    var offset = 0;
+    var offsetTop = 0;
+    var offsetBottom = 0;
+    var scrollHeight = 0;
+    var affix = 0;
+    var affixType = '';
+    var e = {};
 
     if (!this.$element.is(':visible')) {return;}
 
@@ -2332,9 +2390,9 @@ Number(function ($) {
 
   function Plugin(option) {
     return this.each(function () {
-      var $this = $(this),
-          data = $this.data('bs.affix'),
-          options = typeof option === 'object' && option;
+      var $this = $(this);
+      var data = $this.data('bs.affix');
+      var options = typeof option === 'object' && option;
 
       if (!data) {$this.data('bs.affix', data = new Affix(this, options));}
       if (typeof option === 'string') {data[option]();}
@@ -2361,8 +2419,8 @@ Number(function ($) {
 
   $(window).on('load', function () {
     $('[data-spy="affix"]').each(function () {
-      var $spy = $(this),
-          data = $spy.data();
+      var $spy = $(this);
+      var data = $spy.data();
 
       data.offset = data.offset || {};
 

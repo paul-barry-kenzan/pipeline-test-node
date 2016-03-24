@@ -80,7 +80,7 @@
 
     "no-catch-shadow": 1,
     "no-delete-var": 1,
-    "no-unused-vars": [1, { "vars": "all", "args": "after-used" }],
+    "no-unused-vars": 2,
 
 
     "handle-callback-err": 1,
@@ -138,7 +138,7 @@
     "newline-per-chained-call": [1, {"ignoreChainWithDepth": 3}],
 
 
-    "object-curly-spacing": [1, "always", {
+    "object-curly-spacing": [2, "always", {
       "objectsInObjects": false,
       "arraysInObjects": false
     }],

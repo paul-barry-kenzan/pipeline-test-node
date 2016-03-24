@@ -1,11 +1,12 @@
 'use strict';
 
-var plugins = require('gulp-load-plugins')({ lazy: true }),
-    fs = require('fs'),
-    handyman = require('pipeline-handyman'),
-    path = require('path'),
-    lazypipe = require('lazypipe'),
-    esLintConfig = resolveConfigFile('.eslintrc');
+var eslint = require('gulp-eslint');
+var fs = require('fs');
+var handyman = require('pipeline-handyman');
+var path = require('path');
+var lazypipe = require('lazypipe');
+
+var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
   validateJS: function (options) {
@@ -61,9 +62,9 @@ function existsSync(filename) {
 
 function validateES() {
   var stream = lazypipe()
-    .pipe(plugins.eslint, esLintConfig)
-    .pipe(plugins.eslint.format)
-    .pipe(plugins.eslint.failOnError);
+    .pipe(eslint, esLintConfig)
+    .pipe(eslint.format)
+    .pipe(eslint.failOnError);
 
   return stream();
 }

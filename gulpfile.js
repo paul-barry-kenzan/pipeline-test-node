@@ -1,20 +1,16 @@
 'use strict';
 
-var gulp = require('gulp'),
-    validatePipeline = require('./src/index.js'),
-    config = {
-      files: [
-        '*.js',
-        './src/*.js',
-        './src/**/*.js'
-      ],
-      rules: {
-        'consistent-this': 0,
-        'new-cap': 0,
-        'no-cond-assign': 0,
-        'newline-per-chained-call': 0
-      }
-    };
+var gulp = require('gulp');
+var validatePipeline = require('./src/index.js');
+
+var config = {
+  files: [
+    '*.js',
+    './src/*.js',
+    './test/**/*.js'
+  ],
+  rules: {}
+};
 
 gulp.task('build', function() {
   return gulp

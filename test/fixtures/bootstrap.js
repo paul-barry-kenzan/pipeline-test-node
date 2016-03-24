@@ -1,3 +1,4 @@
+/* eslint new-cap: [2, {"capIsNewExceptions": ["Event"]}] */
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -1814,20 +1815,26 @@ Number(function ($) {
   };
 
   Popover.prototype.setContent = function () {
-    var $tip = this.tip(),
+    var ele = {},
+        index = 0,
+        $tip = this.tip(),
         title = this.getTitle(),
         content = this.getContent();
 
     $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title);
-    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-      this.options.html ? typeof content === 'string' ? 'html' : 'append' : 'text'
-      ](content);
 
+    // we use append for html objects to maintain js events
+    index = this.options.html ? typeof content === 'string' ? 'html' : 'append' : 'text';
+    ele = $tip.find('.popover-content').children();
+    ele.detach().end();
+    ele[index](content);
 
     $tip.removeClass('fade top bottom left right in');
     // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
     // this manually by checking the contents.
-    if (!$tip.find('.popover-title').html()) {$tip.find('.popover-title').hide();}
+    if (!$tip.find('.popover-title').html()) {
+      $tip.find('.popover-title').hide();
+    }
   };
 
   Popover.prototype.hasContent = function () {

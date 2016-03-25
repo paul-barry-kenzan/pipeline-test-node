@@ -1,16 +1,19 @@
 'use strict';
 
-var plugins = require('gulp-load-plugins')({ lazy: true }),
-    fs = require('fs'),
-    handyman = require('pipeline-handyman'),
-    path = require('path'),
-    lazypipe = require('lazypipe'),
-    esLintConfig = resolveConfigFile('.eslintrc');
+var eslint = require('gulp-eslint');
+var fs = require('fs');
+var handyman = require('pipeline-handyman');
+var path = require('path');
+var lazypipe = require('lazypipe');
+
+var esLintConfig = resolveConfigFile('.eslintrc');
 
 module.exports = {
   validateJS: function (options) {
-    var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8')),
-        customConfig, origin, rules;
+    var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
+    var customConfig = {};
+    var origin = {};
+    var rules = {};
 
     if (options) {
       if (typeof options === 'object' && !Array.isArray(options) || typeof options === 'string') {
@@ -34,8 +37,8 @@ module.exports = {
 };
 
 function resolveConfigFile(fileName) {
-  var configFilesPathUser = path.resolve(process.cwd(), fileName),
-      configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
+  var configFilesPathUser = path.resolve(process.cwd(), fileName);
+  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
 
   configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
 
@@ -61,9 +64,9 @@ function existsSync(filename) {
 
 function validateES() {
   var stream = lazypipe()
-    .pipe(plugins.eslint, esLintConfig)
-    .pipe(plugins.eslint.format)
-    .pipe(plugins.eslint.failOnError);
+    .pipe(eslint, esLintConfig)
+    .pipe(eslint.format)
+    .pipe(eslint.failOnError);
 
   return stream();
 }

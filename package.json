@@ -34,21 +34,22 @@
     "registry": "http://registry.npmjs.org/"
   },
   "engines": {
-    "node": ">=0.10.3",
-    "npm": ">=1.0.20"
+    "node": ">=4.0.0",
+    "npm": ">=2.14.0"
   },
   "analyze": true,
   "license": "Apache 2",
   "dependencies": {
-    "gulp": "3.9.0",
     "gulp-eslint": "2.0.0",
     "lazypipe": "1.0.1",
+    "lodash": "3.10.1",
     "pipeline-handyman": "1.0.0"
   },
   "devDependencies": {
-    "chai": "3.2.0",
-    "chai-spies": "0.7.1",
-    "gulp-mocha": "2.2.0",
+    "chai": "3.5.0",
+    "gulp": "3.9.0",
+    "isstream": "0.1.2",
+    "mocha": "2.3.2",
     "pipeline-test-node": "0.4.1",
     "sinon": "1.17.3",
     "sinon-chai": "2.8.0"

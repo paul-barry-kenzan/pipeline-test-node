@@ -2,20 +2,45 @@
 
 var gulp = require('gulp');
 var validatePipeline = require('./src/index.js');
+var testPipeline = require('pipeline-test-node')({ plugins: {
+  mocha: {
+    reporter: 'spec'
+  },
+  istanbul: {
+    includeUntested: true,
+    reporters: ['text-summary'],
+    thresholds: {
+      global: 85
+    }
+  }
+}});
 
 var validateConfig = {
-  files: [
-    '*.js',
-    './src/*.js',
-    './test/**/*.js'
-  ],
-  rules: {}
+  linter: {
+    files: [
+      '*.js',
+      './src/*.js',
+      './test/**/*.js'
+    ]
+  },
+  test: {
+    files: [
+      '*.js',
+      './src/*.js',
+      './test/**/*.js',
+      '!./test/fixtures/bootstrap.js'
+    ]
+  }
 };
 
 gulp.task('lint', function() {
   return gulp
-    .src(validateConfig.files)
-    .pipe(validatePipeline.validateJS(validateConfig.rules));
+    .src(validateConfig.linter.files)
+    .pipe(validatePipeline.validateJS());
 });
 
-gulp.task('build', ['lint']);
+gulp.task('build', ['lint'], function() {
+  return gulp
+    .src(validateConfig.test.files)
+    .pipe(testPipeline.test());
+});

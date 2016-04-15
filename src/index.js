@@ -3,38 +3,43 @@
 var eslint = require('gulp-eslint');
 var fs = require('fs');
 var handyman = require('pipeline-handyman');
-var path = require('path');
 var lazypipe = require('lazypipe');
+var path = require('path');
+var _ = require('lodash');
 
-var esLintConfig = resolveConfigFile('.eslintrc');
+var ESLINT_CONFIG_PATH = './.eslintrc';
+var esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
 
 module.exports = {
   validateJS: function (options) {
-    var dest = JSON.parse(fs.readFileSync(path.join(__dirname, '../.eslintrc'), 'utf8'));
-    var customConfig = {};
-    var origin = {};
-    var rules = {};
+    if (options) { checkOptions(options); }
 
-    if (options) {
-      if (typeof options === 'object' && !Array.isArray(options) || typeof options === 'string') {
-        if (typeof options === 'object') {
-          rules = { rules: options };
-
-          esLintConfig = handyman.mergeConfig(dest, rules);
-        } else {
-          customConfig = resolveConfigFile(options);
-          origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
-
-          esLintConfig = handyman.mergeConfig(dest, origin);
-        }
-        handyman.log('Validading js with ESlint ecmaScript5');
-      } else {
-        handyman.log('Validading js with ESlint ecmaScript5, ** Options not valid **');
-      }
-    }
+    handyman.log('Validading js with ESlint');
     return validateES();
   }
 };
+
+function checkOptions(options) {
+  var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
+  var customConfig = {};
+  var origin = {};
+
+  if (_.isPlainObject(options)) {
+    handyman.log('Parsing Options');
+    esLintConfig = handyman.mergeConfig(dest, options);
+
+  } else if (typeof options === 'string') {
+    handyman.log('Linting using custom file');
+
+    customConfig = resolveConfigFile(options);
+    origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
+    esLintConfig = handyman.mergeConfig(dest, origin);
+  } else {
+    handyman.log('** Options not valid **');
+
+    throw new ReferenceError();
+  }
+}
 
 function resolveConfigFile(fileName) {
   var configFilesPathUser = path.resolve(process.cwd(), fileName);
@@ -49,6 +54,7 @@ function existsSync(filename) {
   if (typeof fs.accessSync === 'function') {
     try {
       fs.accessSync(filename);
+      handyman.log('Linting using ' + filename);
       return true;
     } catch (error) {
       if (typeof error !== 'object' || error.code !== 'ENOENT') {
@@ -62,11 +68,19 @@ function existsSync(filename) {
   }
 }
 
-function validateES() {
+function makePipe() {
   var stream = lazypipe()
     .pipe(eslint, esLintConfig)
     .pipe(eslint.format)
     .pipe(eslint.failOnError);
 
   return stream();
+}
+
+function validateES() {
+  var pipeline = makePipe();
+
+  esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
+
+  return pipeline;
 }

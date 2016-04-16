@@ -102,7 +102,7 @@ describe('pipeline-validateJS', function() {
         spy.should.have.been.calledWith(sinon.match(/^Linting using.*eslintrc3$/));
       });
 
-      it('should test validateJS() with valid object as options', function() {
+      it.only('should test validateJS() with valid object as options', function() {
         pipeline({ 'rules': { 'semi': 2 }});
 
         spy.should.have.been.calledWith('Parsing Options');

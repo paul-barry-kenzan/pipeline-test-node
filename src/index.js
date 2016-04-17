@@ -8,46 +8,24 @@ var path = require('path');
 var _ = require('lodash');
 
 var ESLINT_CONFIG_PATH = './.eslintrc';
-var esLintConfig;
+var esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
 
 module.exports = {
   validateJS: function (options) {
-    checkLocalLintFile();
-    if (options) { checkOptions(options); }
+    if (options) {
+      checkOptions(options);
+    }
 
     handyman.log('Validading js with ESlint');
     return validateES();
   }
 };
 
-function checkLocalLintFile() {
-
-  fs.readFile('./.eslintrc', 'utf8', function (err, data) {
-    if (err) {return;}
-
-    var fileName;
-    var dest;
-    var jsPath;
-    var origin;
-
-    esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
-    fileName = '.eslintrc';
-    dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
-    jsPath = path.resolve(__dirname.substring(0, __dirname.lastIndexOf('/')), fileName);
-    origin = JSON.parse(fs.readFileSync(jsPath, 'utf8'));
-
-    handyman.log('Linting using custom file');
-    esLintConfig = handyman.mergeConfig(origin, dest);
-  });
-  console.log('CheckLocalLintFile', esLintConfig);
-}
-
 function checkOptions(options) {
   console.log('checkOptions', esLintConfig);
   var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
   var customConfig = {};
   var origin = {};
-  esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
 
   if (_.isPlainObject(options)) {
     handyman.log('Parsing Options');

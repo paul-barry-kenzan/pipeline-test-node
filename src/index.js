@@ -12,9 +12,7 @@ var esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
 
 module.exports = {
   validateJS: function (options) {
-    if (options) {
-      checkOptions(options);
-    }
+    if (options) { checkOptions(options); }
 
     handyman.log('Validading js with ESlint');
     return validateES();
@@ -22,7 +20,6 @@ module.exports = {
 };
 
 function checkOptions(options) {
-  console.log('checkOptions', esLintConfig);
   var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
   var customConfig = {};
   var origin = {};
@@ -42,7 +39,6 @@ function checkOptions(options) {
 
     throw new ReferenceError();
   }
-
 }
 
 function resolveConfigFile(fileName) {

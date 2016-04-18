@@ -13,11 +13,28 @@ var esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
 module.exports = {
   validateJS: function (options) {
     if (options) { checkOptions(options); }
+    checkLocalLintFile();
 
     handyman.log('Validading js with ESlint');
     return validateES();
   }
 };
+
+function checkLocalLintFile() {
+  var rootFile = process.cwd() + '/.eslintrc';
+  var file = './node_modules/pipeline-validate-js/.eslintrc';
+
+  fs.readFile(rootFile, function (err) {
+    if (err) {return;}
+
+    fs.readFile(file, 'utf8', function (err, data) {
+      if (err) { return; }
+
+      handyman.log('merging local and custom .eslintrc file');
+      esLintConfig = handyman.mergeConfig(esLintConfig, data);
+    });
+  });
+}
 
 function checkOptions(options) {
   var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
@@ -84,3 +101,4 @@ function validateES() {
 
   return pipeline;
 }
+

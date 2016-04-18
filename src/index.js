@@ -24,11 +24,11 @@ function checkLocalLintFile() {
   var rootFile = process.cwd() + '/.eslintrc';
   var file = './node_modules/pipeline-validate-js/.eslintrc';
 
-  fs.readFile(rootFile, function (err){
-    if (err) {return}
+  fs.readFile(rootFile, function (err) {
+    if (err) {return;}
 
     fs.readFile(file, 'utf8', function (err, data) {
-      if (err) {return;}
+      if (err) { return; }
 
       handyman.log('merging local and custom .eslintrc file');
       esLintConfig = handyman.mergeConfig(esLintConfig, data);

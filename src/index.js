@@ -16,7 +16,7 @@ module.exports = {
     checkLocalLintFile();
 
     handyman.log('Validading js with ESlint');
-    return validateES();
+    return pipelineFactory();
   }
 };
 
@@ -85,20 +85,12 @@ function existsSync(filename) {
   }
 }
 
-function makePipe() {
+function pipelineFactory() {
   var stream = lazypipe()
     .pipe(eslint, esLintConfig)
     .pipe(eslint.format)
     .pipe(eslint.failOnError);
 
+  esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
   return stream();
 }
-
-function validateES() {
-  var pipeline = makePipe();
-
-  esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
-
-  return pipeline;
-}
-

@@ -32,38 +32,33 @@ var config = {
   }
 };
 
-module.exports = testPipeline;
+module.exports = {
+  test: function(options) {
+    options = options || {};
+    config = handyman.mergeConf(config, options);
 
-function testPipeline(options) {
-
-  options = options || {};
-  config = handyman.mergeConf(config, options);
-
-  var pipeline = {
-    test: nodeTest()
-  };
-
-  return pipeline;
-
-  function nodeCoverage() {
-
-    return gulp.src(config.files.src)
-      // Covering files
-      .pipe(istanbul())
-      // Force `require` to return covered files
-      .pipe(istanbul.hookRequire())
-      // Write the covered files to a temporary directory
-      .pipe(gulp.dest('./reports/'));
+    return pipelineFactory();
   }
+};
 
-  function nodeTest() {
-    handyman.log('Running mocha tests');
+function pipelineFactory() {
+  var stream;
+  handyman.log('Running mocha tests');
 
-    nodeCoverage();
+  generateNodeCoverageReport();
 
-    return lazypipe()
-      .pipe(mocha, config.plugins.mocha)
-      .pipe(istanbul.writeReports, config.plugins.istanbul)
-      .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
-  }
+  stream = lazypipe()
+    .pipe(mocha, config.plugins.mocha)
+    .pipe(istanbul.writeReports, config.plugins.istanbul)
+    .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
+
+  return stream();
+}
+
+function generateNodeCoverageReport() {
+
+  return gulp.src(config.files.src)
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+    .pipe(gulp.dest('./reports/'));
 }

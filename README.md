@@ -8,9 +8,9 @@
 
 # Overview
 
-Gulp Pipeline that generates an object which has a method to run unit tests locally using `mocha`.
+Gulp Pipeline for running unit tests for NodeJS modules using [mocha[].
 
-**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.**
+[mocha]: https://mochajs.org/
 
 ## Install
 

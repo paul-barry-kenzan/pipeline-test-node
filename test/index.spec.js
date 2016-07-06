@@ -4,16 +4,47 @@ var handyman = require('pipeline-handyman');
 var isStream = require('isstream');
 var sinon = require('sinon');
 var sinonChai = require('sinon-chai');
+var dirtyChai = require('dirty-chai');
+var fs = require('fs-extra');
+var path = require('path');
+var rimraf = require('rimraf');
 var validatePipeline = require('../src/index.js');
+var expect = chai.expect;
 
 chai.should();
 chai.use(sinonChai);
+chai.use(dirtyChai);
 
-describe('pipeline-validateJS', function() {
+describe('pipeline-validateJS', function () {
+
+  var esLintFilePath;
+  var mockLintConfigPath;
   var pipeline;
 
-  beforeEach(function() {
+  before(function () {
+    esLintFilePath = path.join(process.cwd(), '.eslintrc');
+    mockLintConfigPath = path.join(process.cwd(), 'node_modules/pipeline-validate-js/.eslintrc');
     pipeline = validatePipeline.validateJS;
+
+    try {
+      // file exists, do nothing
+      fs.accessSync(mockLintConfigPath);
+    } catch (ex) {
+      fs.copySync(esLintFilePath, mockLintConfigPath);
+    }
+
+  });
+
+  after(function () {
+    rimraf.sync(mockLintConfigPath.replace('.eslintrc', ''));
+  });
+
+  it('should expose a validateJS method', function () {
+    expect(validatePipeline.validateJS).to.exist();
+  });
+
+  it('should return a stream', function () {
+    expect(isStream(validatePipeline.validateJS())).to.be.true();
   });
 
   it('should return a object', function () {

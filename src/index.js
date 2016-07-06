@@ -7,90 +7,82 @@ var lazypipe = require('lazypipe');
 var path = require('path');
 var _ = require('lodash');
 
-var ESLINT_CONFIG_PATH = './.eslintrc';
-var esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
+var ESLINT_DEFAULT_CONFIG_PATH = 'node_modules/pipeline-validate-js/.eslintrc';
+var ESLINT_ROOT_CONFIG_PATH = '.eslintrc';
 
 module.exports = {
   validateJS: function (options) {
-    if (options) { checkOptions(options); }
-    checkLocalLintFile();
+    var config;
 
     handyman.log('Validading js with ESlint');
-    return pipelineFactory();
+    config = checkLocalLintFile(options);
+
+    return pipelineFactory(config);
   }
 };
 
-function checkLocalLintFile() {
-  var rootFile = process.cwd() + '/.eslintrc';
-  var file = './node_modules/pipeline-validate-js/.eslintrc';
+function checkLocalLintFile(options) {
+  var config = {};
+  var defaultPath = path.join(process.cwd(), ESLINT_DEFAULT_CONFIG_PATH);
+  var rootPath = path.join(process.cwd(), ESLINT_ROOT_CONFIG_PATH);
+  var customConfig;
 
-  fs.readFile(rootFile, function (err) {
-    if (err) {return;}
+  try {
+    handyman.log('Linting using default path: ' + defaultPath);
+    config = JSON.parse(fs.readFileSync(defaultPath, 'utf-8'));
 
-    fs.readFile(file, 'utf8', function (err, data) {
-      if (err) { return; }
+  } catch (ex) {
+    handyman.log(String(ex));
 
-      handyman.log('merging local and custom .eslintrc file');
-      esLintConfig = handyman.mergeConfig(esLintConfig, data);
-    });
-  });
-}
-
-function checkOptions(options) {
-  var dest = JSON.parse(fs.readFileSync(esLintConfig, 'utf8'));
-  var customConfig = {};
-  var origin = {};
-
-  if (_.isPlainObject(options)) {
-    handyman.log('Parsing Options');
-    esLintConfig = handyman.mergeConfig(dest, options);
-
-  } else if (typeof options === 'string') {
-    handyman.log('Linting using custom file');
-
-    customConfig = resolveConfigFile(options);
-    origin = JSON.parse(fs.readFileSync(customConfig, 'utf8'));
-    esLintConfig = handyman.mergeConfig(dest, origin);
-  } else {
-    handyman.log('** Options not valid **');
-
-    throw new ReferenceError();
   }
-}
 
-function resolveConfigFile(fileName) {
-  var configFilesPathUser = path.resolve(process.cwd(), fileName);
-  var configFilesPathDefault = __dirname.substring(0, __dirname.lastIndexOf('/'));
+  if (options) {
 
-  configFilesPathDefault = path.resolve(configFilesPathDefault, fileName);
+    if (typeof options === 'string') {
+      customConfig = fs.readFileSync(options, 'utf-8');
+      handyman.log('Linting using custom path: ' + options);
+      config = handyman.mergeConfig(config, JSON.parse(customConfig));
+      handyman.log('Linting using custom file');
 
-  return existsSync(configFilesPathUser) ? configFilesPathUser : configFilesPathDefault;
-}
+    } else if (_.isPlainObject(options)) {
+      handyman.log('Parsing Options');
+      config = handyman.mergeConfig(config, options);
 
-function existsSync(filename) {
-  if (typeof fs.accessSync === 'function') {
-    try {
-      fs.accessSync(filename);
-      handyman.log('Linting using ' + filename);
-      return true;
-    } catch (error) {
-      if (typeof error !== 'object' || error.code !== 'ENOENT') {
-        handyman.log('Unable to access ' + filename + ':');
-        handyman.log(error.stack);
-      }
-      return false;
+    } else {
+      handyman.log('** Options not valid **');
+      throw new ReferenceError();
+
     }
   } else {
-    return fs.existsSync(filename);
+
+    try {
+      customConfig = fs.readFileSync(rootPath, 'utf-8');
+      handyman.log('Linting using root path: ' + rootPath);
+      config = handyman.mergeConfig(config, customConfig);
+
+    } catch (ex) {
+      // no op.
+    }
+
   }
+
+  return config;
 }
 
-function pipelineFactory() {
-  var stream = lazypipe()
-    .pipe(eslint, esLintConfig)
-    .pipe(eslint.format)
-    .pipe(eslint.failOnError);
+function pipelineFactory(config) {
+  var stream;
 
-  esLintConfig = resolveConfigFile(ESLINT_CONFIG_PATH);
-  return stream();
+  if (typeof config === 'object') {
+    stream = lazypipe()
+        .pipe(eslint.format)
+        .pipe(eslint, config)
+        .pipe(eslint.failOnError);
+
+    return stream();
+
+  } else {
+    handyman.log('Validate error! Config object required');
+    return false;
+
+  }
 }

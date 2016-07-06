@@ -2,18 +2,7 @@
 
 var gulp = require('gulp');
 var validatePipeline = require('./src/index.js');
-var testPipeline = require('pipeline-test-node')({ plugins: {
-  mocha: {
-    reporter: 'spec'
-  },
-  istanbul: {
-    includeUntested: true,
-    reporters: ['text-summary'],
-    thresholds: {
-      global: 75
-    }
-  }
-}});
+var testPipeline = require('pipeline-test-node');
 
 var validateConfig = {
   linter: {

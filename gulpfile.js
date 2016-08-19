@@ -22,14 +22,16 @@ var validateConfig = {
   }
 };
 
-gulp.task('lint', function() {
+gulp.task('lint', function () {
   return gulp
-    .src(validateConfig.linter.files)
-    .pipe(validatePipeline.validateJS());
+  .src(validateConfig.linter.files)
+  .pipe(validatePipeline.validateJS());
 });
 
-gulp.task('build', ['lint'], function() {
+gulp.task('test', ['lint'], function () {
   return gulp
-    .src(validateConfig.test.files)
-    .pipe(testPipeline.test());
+  .src(validateConfig.test.files)
+  .pipe(testPipeline.test());
 });
+
+gulp.task('build', ['test']);

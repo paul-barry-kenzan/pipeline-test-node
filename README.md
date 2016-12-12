@@ -4,7 +4,7 @@
 
 | Package       | Description   | Version|
 | ------------- |:-------------:| -----:|
-| pipeline-test-node| Pipeline to run tests locally using mocha | 1.0.1 |
+| pipeline-test-node| Pipeline to run tests locally using mocha | 1.1.0 |
 
 # Overview
 

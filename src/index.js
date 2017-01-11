@@ -1,6 +1,5 @@
 'use strict';
 
-var gulp = require('gulp');
 var handyman = require('pipeline-handyman');
 var istanbul = require('gulp-istanbul');
 var lazypipe = require('lazypipe');

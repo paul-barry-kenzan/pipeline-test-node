@@ -6,7 +6,7 @@ var istanbul = require('gulp-istanbul');
 var lazypipe = require('lazypipe');
 var mocha = require('gulp-mocha');
 
-var config = {
+var defaultConfig = {
   files: {
     src: ['./src/*.js']
   },
@@ -33,39 +33,28 @@ var config = {
 };
 
 module.exports = {
+  pipelineFactory: pipelineFactory,
   test: function(options) {
-    options = options || {};
-    config = handyman.mergeConf(config, options);
+    var config;
+    var stream;
 
-    return pipelineFactory();
+    options = options || {};
+    config = handyman.mergeConf(defaultConfig, options);
+
+    stream = pipelineFactory(config);
+    stream.config = config;
+    return stream;
+  },
+  coverage: function() {
+    return lazypipe()
+      .pipe(istanbul)
+      .pipe(istanbul.hookRequire);
   }
 };
 
-function pipelineFactory() {
-  var stream;
-
-  gulp.doneCallback = function(err) {
-    if (err) {
-      process.exit(1); // eslint-disable-line
-    }
-  };
-
-  handyman.log('Running mocha tests');
-
-  generateNodeCoverageReport();
-
-  stream = lazypipe()
+function pipelineFactory(config) {
+  return lazypipe()
     .pipe(mocha, config.plugins.mocha)
     .pipe(istanbul.writeReports, config.plugins.istanbul.writeReports)
     .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
-
-  return stream();
-}
-
-function generateNodeCoverageReport() {
-
-  return gulp.src(config.files.src)
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire())
-    .pipe(gulp.dest('./reports/'));
 }

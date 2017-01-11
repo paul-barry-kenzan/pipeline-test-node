@@ -3,7 +3,13 @@
 var gulp = require('gulp');
 var validatePipeline = require('pipeline-validate-js');
 var testPipeline = require('./src/index.js');
-var test = testPipeline.test();
+var test = testPipeline.test({
+  plugins: {
+    mocha: {
+      timeout: 5000
+    }
+  }
+});
 var coverage = testPipeline.coverage();
 
 gulp.task('test:coverage', function(){

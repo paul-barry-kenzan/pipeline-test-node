@@ -32,7 +32,7 @@ var defaultConfig = {
 };
 
 module.exports = {
-  pipelineFactory: pipelineFactory,
+  mochaPipeline: mochaPipeline,
   test: function(options) {
     var config;
     var stream;
@@ -40,8 +40,12 @@ module.exports = {
     options = options || {};
     config = handyman.mergeConf(defaultConfig, options);
 
-    stream = pipelineFactory(config);
+    stream = mochaPipeline(config)
+      .pipe(istanbul.writeReports, config.plugins.istanbul.writeReports)
+      .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
+
     stream.config = config;
+
     return stream;
   },
   coverage: function() {
@@ -51,9 +55,6 @@ module.exports = {
   }
 };
 
-function pipelineFactory(config) {
-  return lazypipe()
-    .pipe(mocha, config.plugins.mocha)
-    .pipe(istanbul.writeReports, config.plugins.istanbul.writeReports)
-    .pipe(istanbul.enforceThresholds, config.plugins.istanbul);
+function mochaPipeline(config) {
+  return lazypipe().pipe(mocha, config.plugins.mocha);
 }

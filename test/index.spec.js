@@ -25,14 +25,14 @@ describe('pipeline-test-node', function() {
       expect(testPipeline.coverage).to.exist;
     });
 
-    describe('pipelineFactory()', function () {
-      it('should return a lazypipe', function() {
-        expect(testPipeline.pipelineFactory(testPipeline.test().config)).to.exist;
+    describe('mochaPipeline()', function () {
+      it('should return a partial pipeline', function() {
+        expect(testPipeline.mochaPipeline(testPipeline.test().config)).to.exist;
       });
     });
 
     describe('test()', function () {
-      it('should return an object with config and lazypipe', function() {
+      it('should return an object with config', function() {
         expect(testPipeline.test().config).to.exist;
         expect(testPipeline.test()).to.exist;
       });
